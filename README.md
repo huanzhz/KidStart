@@ -1,0 +1,3 @@
+# KidStart
+
+WORKING IN PROGRESS
