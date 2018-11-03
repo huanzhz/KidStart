@@ -12,6 +12,10 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
+/**
+ * This class handle the http request
+ * @author HuanZhang
+ */
 public class HttpHandler {
 
     private static final String TAG = HttpHandler.class.getSimpleName();
@@ -20,6 +24,11 @@ public class HttpHandler {
 
     }
 
+    /**
+     * Connection with the sever side
+     * @param reqUrl the url which you want to connect to
+     * @return a response whether it is connected
+     */
     public String makeServiceCall(String reqUrl){
         String response = null;
         try{
@@ -41,6 +50,11 @@ public class HttpHandler {
         return response;
     }
 
+    /**
+     * Convertion of bit to readable string format.
+     * @param is the bit that transfering
+     * @return the string convertion
+     */
     private String convertStreamToString(InputStream is){
         BufferedReader reader = new BufferedReader((new InputStreamReader(is)));
         StringBuilder sb = new StringBuilder();

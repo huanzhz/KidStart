@@ -15,6 +15,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
+/**
+ * This is the result display class.
+ * @author HuanZhang
+ */
 public class DisplayResultUI extends AppCompatActivity {
 
     public static ListView displayResultListView;
@@ -88,26 +92,11 @@ public class DisplayResultUI extends AppCompatActivity {
         mySortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sortData();
+                if(SortByName.sortData()) {
+                    updateListView(DisplayResultController.recordList);
+                }
             }
         });
-    }
-
-    public void sortData(){
-        if(DisplayResultController.recordList.size() != 0) {
-            //ArrayList< HashMap< String,String >> arrayList= recordList;
-            Collections.sort(DisplayResultController.recordList, new Comparator<HashMap<String, String>>() {
-
-                @Override
-                public int compare(HashMap<String, String> lhs,
-                                   HashMap<String, String> rhs) {
-                    // Do your comparison logic here and return accordingly.
-                    return (rhs.get("testID")).compareTo(lhs.get("testID"));
-                }
-            });
-
-            updateListView(DisplayResultController.recordList);
-        }
     }
 
     public void updateListView(ArrayList arrayList){
