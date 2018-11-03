@@ -10,6 +10,10 @@ import java.util.ArrayList;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
+/**
+ * This is the main class
+ * @author HuanZhang
+ */
 public class MainActivity extends AppCompatActivity {
 
     public static final String MAIN_MESSAGE = "com.kidstart.kidstart.MAINMESSAGE";

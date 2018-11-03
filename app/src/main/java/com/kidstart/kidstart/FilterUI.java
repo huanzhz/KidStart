@@ -9,6 +9,10 @@ import android.widget.CheckBox;
 
 import java.util.HashMap;
 
+/**
+ * This class implement the Filter method
+ * @author HuanZhang
+ */
 public class FilterUI extends AppCompatActivity {
 
     public static final String FILTER_MESSAGE = "com.kidstart.kidstart.FILTERMESSAGE";
@@ -34,6 +38,9 @@ public class FilterUI extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    /**
+     * Compare the race to filter out the unwanted data.
+     */
     public void filterRace(){
         // Loop through the array to see which is not suitable for the filter
         for (int i = DisplayResultController.tempRecordList.size()-1; i >= 0; i--) {
@@ -50,6 +57,10 @@ public class FilterUI extends AppCompatActivity {
         }
     }
 
+    /**
+     * Go to Display Result UI.
+     * @param view
+     */
     public void goToListView(View view){
         // Create a copied of the original and remove them by filtering
         DisplayResultController.recordCopy(DisplayResultController.tempRecordList, DisplayResultController.recordList);

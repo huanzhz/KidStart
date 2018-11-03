@@ -14,6 +14,10 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+/**
+ * This class implement the getAPI method
+ * @author HuanZhang
+ */
 public class APIController extends AsyncTask<Void, Void, Void>{
     private static String TAG = DisplayResultUI.class.getSimpleName();
     private static ProgressDialog pDialog;
