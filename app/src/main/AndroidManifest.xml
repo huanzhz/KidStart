@@ -27,7 +27,6 @@
         <activity
             android:name=".FilterUI"
             android:parentActivityName=".DisplayResultUI" />
-        <activity android:name=".QuestionnaireUI"></activity>
     </application>
 
 </manifest>

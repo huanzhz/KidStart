@@ -16,8 +16,9 @@ public class DisplayResultController {
         }
     }
 
-    public static void createRecord(){
-        //new APIController.GetRecords().execute();
+    public static void resetArray(){
+        recordList.clear();
+        tempRecordList.clear();
     }
 
 }
