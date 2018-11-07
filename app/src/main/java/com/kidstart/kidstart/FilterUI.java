@@ -1,6 +1,8 @@
 package com.kidstart.kidstart;
 
 import android.content.Intent;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +23,8 @@ public class FilterUI extends AppCompatActivity {
     Button submitBtn;
     Boolean checkBoxTicked;
 
+    private DisplayResultController displayResultController;
+
     HashMap<String,String> filterList = new HashMap<String, String>();
 
     @Override
@@ -36,23 +40,41 @@ public class FilterUI extends AppCompatActivity {
 
         // System Back button enable
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //displayResultController = getIntent().getParcelableExtra("resultContr");
+        displayResultController = getIntent().getExtras().getParcelable("resultContr");
     }
 
     /**
      * Compare the race to filter out the unwanted data.
      */
+//    public void filterRace(){
+//        // Loop through the array to see which is not suitable for the filter
+//        for (int i = DisplayResultController.tempRecordList.size()-1; i >= 0; i--) {
+//
+//            // If the record is match do not remove it
+//            // String[] checked=["1","1","0"];
+//            if(DisplayResultController.tempRecordList.get(i).get("Chinese").equals(filterList.get("Chinese")) &&
+//                    DisplayResultController.tempRecordList.get(i).get("Malay").equals(filterList.get("Malay")) &&
+//                    DisplayResultController.tempRecordList.get(i).get("Tamil").equals(filterList.get("Tamil")) ){
+//                continue;
+//            } else {
+//                DisplayResultController.recordList.remove(i);
+//            }
+//        }
+//    }
     public void filterRace(){
         // Loop through the array to see which is not suitable for the filter
-        for (int i = DisplayResultController.tempRecordList.size()-1; i >= 0; i--) {
+        for (int i = displayResultController.tempRecordList.size()-1; i >= 0; i--) {
 
             // If the record is match do not remove it
             // String[] checked=["1","1","0"];
-            if(DisplayResultController.tempRecordList.get(i).get("Chinese").equals(filterList.get("Chinese")) &&
-                    DisplayResultController.tempRecordList.get(i).get("Malay").equals(filterList.get("Malay")) &&
-                    DisplayResultController.tempRecordList.get(i).get("Tamil").equals(filterList.get("Tamil")) ){
+            if(displayResultController.tempRecordList.get(i).get("Chinese").equals(filterList.get("Chinese")) &&
+                    displayResultController.tempRecordList.get(i).get("Malay").equals(filterList.get("Malay")) &&
+                    displayResultController.tempRecordList.get(i).get("Tamil").equals(filterList.get("Tamil")) ){
                 continue;
             } else {
-                DisplayResultController.recordList.remove(i);
+                displayResultController.recordList.remove(i);
             }
         }
     }
@@ -63,7 +85,8 @@ public class FilterUI extends AppCompatActivity {
      */
     public void goToListView(View view){
         // Create a copied of the original and remove them by filtering
-        DisplayResultController.recordCopy(DisplayResultController.tempRecordList, DisplayResultController.recordList);
+//      DisplayResultController.recordCopy(DisplayResultController.tempRecordList, DisplayResultController.recordList);
+        displayResultController.recordCopy(displayResultController.tempRecordList, displayResultController.recordList);
 
         if(cbChinese.isChecked()) {
             filterList.put("Chinese","1");
@@ -91,9 +114,14 @@ public class FilterUI extends AppCompatActivity {
 
         Intent intent = new Intent(this, DisplayResultUI.class);
         if(checkBoxTicked) {
-            if(DisplayResultController.recordList.size() == 0){
+//            if(DisplayResultController.recordList.size() == 0){
+//                // Create a copied of the original
+//                DisplayResultController.recordCopy(DisplayResultController.tempRecordList, DisplayResultController.recordList);
+//                intent.putExtra(FILTER_MESSAGE, true);
+//            }
+            if(displayResultController.recordList.size() == 0){
                 // Create a copied of the original
-                DisplayResultController.recordCopy(DisplayResultController.tempRecordList, DisplayResultController.recordList);
+                displayResultController.recordCopy(displayResultController.tempRecordList, displayResultController.recordList);
                 intent.putExtra(FILTER_MESSAGE, true);
             }
         }else{

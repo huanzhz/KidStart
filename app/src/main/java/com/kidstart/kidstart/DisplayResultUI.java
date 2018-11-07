@@ -1,8 +1,11 @@
 package com.kidstart.kidstart;
 
 import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -10,24 +13,41 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 
 /**
  * This is the result display class.
  * @author HuanZhang
  */
-public class DisplayResultUI extends AppCompatActivity {
+public class DisplayResultUI extends AppCompatActivity implements Parcelable{
 
     public static ListView displayResultListView;
     private Button mySortButton;
     private boolean filterBool;
     private String titleString;
+    private DisplayResultController displayResultController;
 
     //ArrayList<HashMap<Stsring, String>> recordList;
     HashMap<String,String> filterhashMap = new HashMap<String, String>();
+
+    protected DisplayResultUI(Parcel in) {
+        filterBool = in.readByte() != 0;
+        titleString = in.readString();
+    }
+
+    public static final Creator<DisplayResultUI> CREATOR = new Creator<DisplayResultUI>() {
+        @Override
+        public DisplayResultUI createFromParcel(Parcel in) {
+            return new DisplayResultUI(in);
+        }
+
+        @Override
+        public DisplayResultUI[] newArray(int size) {
+            return new DisplayResultUI[size];
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +74,17 @@ public class DisplayResultUI extends AppCompatActivity {
             }
         }
 
-        // Add in record if it is empty else update the view
-        if(DisplayResultController.recordList.size() == 0 && DisplayResultController.tempRecordList.size() == 0){
+        displayResultController = new DisplayResultController(DisplayResultUI.this, titleString, DisplayResultUI.this);
+
+        if(displayResultController.recordList.size() == 0 && displayResultController.tempRecordList.size() == 0){
             // Create a new object to fetch the data
-            new APIController(DisplayResultUI.this, titleString, DisplayResultUI.this).execute();
+            displayResultController.collateResult();
             // Similar to this code - "
             //      APIController process = new APIController(DisplayResultUI.this);
             //      process.execute();
             // "
         }else {
-            updateListView(DisplayResultController.recordList);
+            updateListView(displayResultController.recordList);
             // If there is no record show a pop up
             if(filterBool) {
                 // Popup show no result found
@@ -72,31 +93,58 @@ public class DisplayResultUI extends AppCompatActivity {
             }
         }
 
+//        // Add in record if it is empty else update the view
+//        if(DisplayResultController.recordList.size() == 0 && DisplayResultController.tempRecordList.size() == 0){
+//            // Create a new object to fetch the data
+//            DisplayResultController.collateResult(DisplayResultUI.this, titleString, DisplayResultUI.this);
+//            // Similar to this code - "
+//            //      APIController process = new APIController(DisplayResultUI.this);
+//            //      process.execute();
+//            // "
+//        }else {
+//            updateListView(DisplayResultController.recordList);
+//            // If there is no record show a pop up
+//            if(filterBool) {
+//                // Popup show no result found
+//                FailureDialog exampleDialog = new FailureDialog();
+//                exampleDialog.show(getSupportFragmentManager(), "example dialog");
+//            }
+//        }
+
         // Button
         // Display more infomation about the centre
         displayResultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HashMap<String, String> selectedRecord = displayResultController.recordList.get(position);
+                //HashMap<String, String> selectedRecord = DisplayResultController.recordList.get(position);
 
-            HashMap<String, String> selectedRecord = DisplayResultController.recordList.get(position);
+                Intent intent = new Intent(DisplayResultUI.this, DetailedInformationUI.class);
 
-            Intent intent = new Intent(DisplayResultUI.this, DetailedInformationUI.class);
-
-            intent.putExtra("hashMapMessage", selectedRecord);
-            startActivity(intent);
+                intent.putExtra("hashMapMessage", selectedRecord);
+                startActivity(intent);
                  }
             }
         );
 
         mySortButton = findViewById(R.id.sortButton);
-        mySortButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(SortByName.sortData()) {
-                    updateListView(DisplayResultController.recordList);
-                }
-            }
-        });
+//        mySortButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(SortByName.sortData()) {
+//                    updateListView(displayResultController.recordList);
+//                    //updateListView(DisplayResultController.recordList);
+//                }
+//            }
+//        });
+    }
+
+    // Click back button
+    public boolean onOptionsItemSelected(MenuItem item){
+        displayResultController.resetArray();
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 
     public void updateListView(ArrayList arrayList){
@@ -111,9 +159,26 @@ public class DisplayResultUI extends AppCompatActivity {
     }
 
     public void goToFilterView(View view){
-        if(DisplayResultController.recordList.size() != 0) {
+        if(displayResultController.recordList.size() != 0) {
             Intent intent = new Intent(this, FilterUI.class);
+            intent.putExtra("resultContr", (Parcelable) displayResultController);
             startActivity(intent);
         }
+
+//        if(DisplayResultController.recordList.size() != 0) {
+//            Intent intent = new Intent(this, FilterUI.class);
+//            startActivity(intent);
+//        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeByte((byte) (filterBool ? 1 : 0));
+        dest.writeString(titleString);
     }
 }
