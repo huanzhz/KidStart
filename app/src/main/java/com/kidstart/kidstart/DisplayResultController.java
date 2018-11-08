@@ -5,8 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 
-public class DisplayResultController {
+public class DisplayResultController extends Observable {
 
     private Context context;
     private String titleString;
@@ -14,6 +15,8 @@ public class DisplayResultController {
 
     private ArrayList<HashMap<String, String>> recordList;
     private ArrayList<HashMap<String, String>> tempRecordList;
+
+    private FilterController filterController = new FilterController();
 
     public DisplayResultController(Context ctx, String titleString, AppCompatActivity activity){
         context = ctx;
@@ -38,7 +41,14 @@ public class DisplayResultController {
             recordList.clear();
             tempRecordList.clear();
             //notify DisplayResultUI to updateListView
+            notifyObservers();
         }
+    }
+
+    //Message passed from FilterUI if checkBoxTicked
+    public void filter(HashMap<String,String> filterList){
+        filterController.filterRace(filterList);
+        notifyObservers();
     }
 
     public void collateResult(){
@@ -49,6 +59,7 @@ public class DisplayResultController {
         context = ctx;
         this.titleString = titleString;
         appActivity = activity;
+        resetArray();
     }
 
     public ArrayList<HashMap<String, String>> getRecordList() {

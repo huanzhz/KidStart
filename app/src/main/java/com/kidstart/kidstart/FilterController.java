@@ -2,7 +2,12 @@ package com.kidstart.kidstart;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 
+/**
+ * This class implement the getAPI method
+ * @author HuanZhang
+ */
 public class FilterController {
     private DisplayResultController displayResultController = singletonManager.getDisplayResultControllerInstance();
 
