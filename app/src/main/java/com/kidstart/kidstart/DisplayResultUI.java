@@ -15,12 +15,14 @@ import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observer;
+import java.util.Observable;
 
 /**
  * This is the result display class.
  * @author HuanZhang
  */
-public class DisplayResultUI extends AppCompatActivity{
+public class DisplayResultUI extends AppCompatActivity implements Observer{
 
     public static ListView displayResultListView;
     private Button mySortButton;
@@ -139,6 +141,24 @@ public class DisplayResultUI extends AppCompatActivity{
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(myIntent, 0);
         return true;
+    }
+
+    //Override method in ListResultObserver, and do something if Subject notifies
+    @Override
+    public void update(Observable observable, Object o){
+        //TODO
+        if (observable instanceof DisplayResultController) {
+            updateListView();
+        }
+    }
+
+    public void updateListView(){
+        ListAdapter adapter = new SimpleAdapter(
+                DisplayResultUI.this, displayResultController.getRecordList(),
+                R.layout.school_listing, new String[]{"centreName", "centreAddress", "testID", "secondLanguagesOffered"},
+                new int[]{R.id.name, R.id.location, R.id.operationhour, R.id.test1});
+
+        displayResultListView.setAdapter(adapter);
     }
 
     public void updateListView(ArrayList arrayList){

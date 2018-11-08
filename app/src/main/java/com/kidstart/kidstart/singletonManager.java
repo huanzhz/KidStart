@@ -3,6 +3,10 @@ package com.kidstart.kidstart;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
+/*
+
+ */
+
 public class singletonManager {
     private static final singletonManager ourInstance = new singletonManager();
     private static DisplayResultController displayResultController = null;

@@ -14,12 +14,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
 
 /**
  * This class implement the getAPI method
  * @author HuanZhang
  */
-public class APIController extends AsyncTask<Void, Void, Void>{
+public class APIController extends AsyncTask<Void, Void, Void> {
     private static String TAG = DisplayResultUI.class.getSimpleName();
     private static ProgressDialog pDialog;
     //URL of the JSON

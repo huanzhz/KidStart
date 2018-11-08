@@ -24,7 +24,7 @@ public class FilterUI extends AppCompatActivity {
     Boolean checkBoxTicked;
 
     private DisplayResultController displayResultController;
-    private FilterController filterController = new FilterController();
+//    private FilterController filterController = new FilterController();
 
     HashMap<String,String> filterList = new HashMap<String, String>();
 
@@ -95,7 +95,8 @@ public class FilterUI extends AppCompatActivity {
 
         // If the checkBox for races is ticked
         if(checkBoxTicked){
-            filterController.filterRace(filterList);
+            //filter will be managed by displayResultController
+            displayResultController.filter(filterList);
         }
 
 //        Intent intent = new Intent(this, DisplayResultUI.class);
