@@ -13,7 +13,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,33 +20,13 @@ import java.util.HashMap;
  * This is the result display class.
  * @author HuanZhang
  */
-public class DisplayResultUI extends AppCompatActivity implements Parcelable{
+public class DisplayResultUI extends AppCompatActivity{
 
     public static ListView displayResultListView;
     private Button mySortButton;
     private boolean filterBool;
     private String titleString;
     private DisplayResultController displayResultController;
-
-    //ArrayList<HashMap<Stsring, String>> recordList;
-    HashMap<String,String> filterhashMap = new HashMap<String, String>();
-
-    protected DisplayResultUI(Parcel in) {
-        filterBool = in.readByte() != 0;
-        titleString = in.readString();
-    }
-
-    public static final Creator<DisplayResultUI> CREATOR = new Creator<DisplayResultUI>() {
-        @Override
-        public DisplayResultUI createFromParcel(Parcel in) {
-            return new DisplayResultUI(in);
-        }
-
-        @Override
-        public DisplayResultUI[] newArray(int size) {
-            return new DisplayResultUI[size];
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,19 +60,12 @@ public class DisplayResultUI extends AppCompatActivity implements Parcelable{
             }
         }
 
-        //displayResultController = new DisplayResultController(DisplayResultUI.this, titleString, DisplayResultUI.this);
         displayResultController = singletonManager.getDisplayResultControllerInstance(DisplayResultUI.this, titleString, DisplayResultUI.this);
 
-//        if(displayResultController.get.size() == 0 && displayResultController.tempRecordList.size() == 0){
-         if(displayResultController.getRecordList().size() == 0 && displayResultController.getTempRecordList().size() == 0) {
+        if(displayResultController.getRecordList().size() == 0 && displayResultController.getTempRecordList().size() == 0) {
             // Create a new object to fetch the data
             displayResultController.collateResult();
-            // Similar to this code - "
-            //      APIController process = new APIController(DisplayResultUI.this);
-            //      process.execute();
-            // "
         }else {
-//            updateListView(displayResultController.recordList);
             updateListView(displayResultController.getRecordList());
             // If there is no record show a pop up
             if(filterBool) {
@@ -193,14 +165,4 @@ public class DisplayResultUI extends AppCompatActivity implements Parcelable{
 //        }
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeByte((byte) (filterBool ? 1 : 0));
-        dest.writeString(titleString);
-    }
 }

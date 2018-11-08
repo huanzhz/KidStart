@@ -17,7 +17,6 @@ import java.util.HashMap;
  */
 public class FilterUI extends AppCompatActivity {
 
-//    public static final String FILTER_MESSAGE = "com.kidstart.kidstart.FILTERMESSAGE";
     public static final String FILTER_MESSAGE = "com.kidstart.kidstart.FILTERMESSAGE";
 
     CheckBox cbChinese, cbMalay, cbTamil;
@@ -50,21 +49,21 @@ public class FilterUI extends AppCompatActivity {
     /**
      * Compare the race to filter out the unwanted data.
      */
-//    public void filterRace(){
-//        // Loop through the array to see which is not suitable for the filter
-//        for (int i = DisplayResultController.tempRecordList.size()-1; i >= 0; i--) {
-//
-//            // If the record is match do not remove it
-//            // String[] checked=["1","1","0"];
-//            if(DisplayResultController.tempRecordList.get(i).get("Chinese").equals(filterList.get("Chinese")) &&
-//                    DisplayResultController.tempRecordList.get(i).get("Malay").equals(filterList.get("Malay")) &&
-//                    DisplayResultController.tempRecordList.get(i).get("Tamil").equals(filterList.get("Tamil")) ){
-//                continue;
-//            } else {
-//                DisplayResultController.recordList.remove(i);
-//            }
-//        }
-//    }
+    public void filterRace(){
+        // Loop through the array to see which is not suitable for the filter
+        for (int i = displayResultController.getTempRecordList().size()-1; i >= 0; i--) {
+
+            // If the record is match do not remove it
+            // String[] checked=["1","1","0"];
+            if(displayResultController.getTempRecordList().get(i).get("Chinese").equals(filterList.get("Chinese")) &&
+                    displayResultController.getTempRecordList().get(i).get("Malay").equals(filterList.get("Malay")) &&
+                    displayResultController.getTempRecordList().get(i).get("Tamil").equals(filterList.get("Tamil")) ){
+                continue;
+            } else {
+                displayResultController.getRecordList().remove(i);
+            }
+        }
+    }
 
     /**
      * Go to Display Result UI.
