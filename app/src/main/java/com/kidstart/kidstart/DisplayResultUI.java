@@ -22,12 +22,7 @@ import java.util.Observable;
  * This is the result display class.
  * @author HuanZhang
  */
-<<<<<<< HEAD
-public class DisplayResultUI extends AppCompatActivity implements Parcelable, Observer{
-
-=======
-public class DisplayResultUI extends AppCompatActivity{
->>>>>>> ebe0c1cb54d6266635877809a916d7eaed770001
+public class DisplayResultUI extends AppCompatActivity implements Observer{
 
     public static ListView displayResultListView;
     private Button mySortButton;
