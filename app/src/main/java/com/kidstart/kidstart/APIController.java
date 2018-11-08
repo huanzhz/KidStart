@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -27,12 +28,16 @@ public class APIController extends AsyncTask<Void, Void, Void>{
     private String titleString;
     private AppCompatActivity mainActivity;
     private DisplayResultController displayResultController;
+    private ArrayList<HashMap<String, String>> recordList;
+    private ArrayList<HashMap<String, String>> tmpRecordList;
 
-    public APIController(Context ctx, String titleString, AppCompatActivity activity, DisplayResultController ref){
+    public APIController(Context ctx, String titleString, AppCompatActivity activity, DisplayResultController ref, ArrayList<HashMap<String, String>> recordList, ArrayList<HashMap<String, String>> tmpRecordList){
         this.mContext = ctx;
         this.titleString = titleString;
         mainActivity = activity;
         displayResultController = ref;
+        this.recordList = recordList;
+        this.tmpRecordList = tmpRecordList;
     }
 
     @Override
@@ -108,9 +113,11 @@ public class APIController extends AsyncTask<Void, Void, Void>{
 //                    // Add another record for filtering
 //                    DisplayResultController.tempRecordList.add(childCareRecord);
                     // Adding record to record list
-                    displayResultController.recordList.add(childCareRecord);
+                    //displayResultController.recordList.add(childCareRecord);
+                    recordList.add(childCareRecord);
                     // Add another record for filtering
-                    displayResultController.tempRecordList.add(childCareRecord);
+                    //displayResultController.tempRecordList.add(childCareRecord);
+                    tmpRecordList.add(childCareRecord);
                 }
             }catch (final JSONException e){
                 Log.e(TAG, "JSON parsing error: " + e.getMessage());
@@ -129,15 +136,19 @@ public class APIController extends AsyncTask<Void, Void, Void>{
             pDialog.dismiss();
         }
 
+        /*
+        implement Observer pattern here, notify DisplayResultUI to updateListView
+        to do the following from DisplayResultUI
+         */
 //        if(DisplayResultController.recordList.size() == 0){
-        if(displayResultController.recordList.size() == 0){
+        if(recordList.size() == 0){
             // Popup show no result found
             FailureDialog exampleDialog = new FailureDialog();
             exampleDialog.show(mainActivity.getSupportFragmentManager(), "example dialog");
         }else {
             ListAdapter adapter = new SimpleAdapter(
 //                    mContext, DisplayResultController.recordList,
-                    mContext, displayResultController.recordList,
+                    mContext, recordList,
                     R.layout.school_listing, new String[]{"centreName", "centreAddress", "testID", "secondLanguagesOffered"},
                     new int[]{R.id.name, R.id.location, R.id.operationhour, R.id.test1});
 

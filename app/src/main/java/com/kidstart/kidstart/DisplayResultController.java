@@ -12,8 +12,8 @@ public class DisplayResultController {
     private String titleString;
     private AppCompatActivity appActivity;
 
-    public ArrayList<HashMap<String, String>> recordList;
-    public ArrayList<HashMap<String, String>> tempRecordList;
+    private ArrayList<HashMap<String, String>> recordList;
+    private ArrayList<HashMap<String, String>> tempRecordList;
 
     public DisplayResultController(Context ctx, String titleString, AppCompatActivity activity){
         context = ctx;
@@ -26,7 +26,6 @@ public class DisplayResultController {
         }
     }
 
-
     public void recordCopy(ArrayList arrayListInput, ArrayList arrayListOutput) {
         arrayListOutput.clear();
         for (int i = 0; i < arrayListInput.size(); i++) {
@@ -38,11 +37,25 @@ public class DisplayResultController {
         if(recordList != null){
             recordList.clear();
             tempRecordList.clear();
+            //notify DisplayResultUI to updateListView
         }
     }
 
     public void collateResult(){
-        new APIController(context, titleString, appActivity, this).execute();
+        new APIController(context, titleString, appActivity, this, recordList, tempRecordList).execute();
     };
 
+    public void setNew(Context ctx, String titleString, AppCompatActivity activity) {
+        context = ctx;
+        this.titleString = titleString;
+        appActivity = activity;
+    }
+
+    public ArrayList<HashMap<String, String>> getRecordList() {
+        return recordList;
+    }
+
+    public ArrayList<HashMap<String, String>> getTempRecordList() {
+        return tempRecordList;
+    }
 }

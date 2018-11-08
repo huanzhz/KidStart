@@ -63,20 +63,29 @@ public class DisplayResultUI extends AppCompatActivity implements Parcelable{
         displayResultListView = (ListView) findViewById(R.id.listView);
         filterBool = false;
 
-        // Check for incoming activity
+        //Check for incoming activity
+//        Intent intent = getIntent();
+//        if(intent.getExtras() != null) {
+//            if(intent.getExtras().containsKey(FilterUI.FILTER_MESSAGE)){
+//                filterBool = intent.getExtras().getBoolean(FilterUI.FILTER_MESSAGE);
+//            }
+//            if(intent.getExtras().containsKey(MainActivity.MAIN_MESSAGE)){
+//                titleString = intent.getExtras().getString(MainActivity.MAIN_MESSAGE);
+//            }
+//        }
         Intent intent = getIntent();
+        //replace !=null to onActivityResult()
         if(intent.getExtras() != null) {
-            if(intent.getExtras().containsKey(FilterUI.FILTER_MESSAGE)){
-                filterBool = intent.getExtras().getBoolean(FilterUI.FILTER_MESSAGE);
-            }
             if(intent.getExtras().containsKey(MainActivity.MAIN_MESSAGE)){
                 titleString = intent.getExtras().getString(MainActivity.MAIN_MESSAGE);
             }
         }
 
-        displayResultController = new DisplayResultController(DisplayResultUI.this, titleString, DisplayResultUI.this);
+        //displayResultController = new DisplayResultController(DisplayResultUI.this, titleString, DisplayResultUI.this);
+        displayResultController = singletonManager.getDisplayResultControllerInstance(DisplayResultUI.this, titleString, DisplayResultUI.this);
 
-        if(displayResultController.recordList.size() == 0 && displayResultController.tempRecordList.size() == 0){
+//        if(displayResultController.get.size() == 0 && displayResultController.tempRecordList.size() == 0){
+         if(displayResultController.getRecordList().size() == 0 && displayResultController.getTempRecordList().size() == 0) {
             // Create a new object to fetch the data
             displayResultController.collateResult();
             // Similar to this code - "
@@ -84,7 +93,8 @@ public class DisplayResultUI extends AppCompatActivity implements Parcelable{
             //      process.execute();
             // "
         }else {
-            updateListView(displayResultController.recordList);
+//            updateListView(displayResultController.recordList);
+            updateListView(displayResultController.getRecordList());
             // If there is no record show a pop up
             if(filterBool) {
                 // Popup show no result found
@@ -116,7 +126,7 @@ public class DisplayResultUI extends AppCompatActivity implements Parcelable{
         displayResultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                HashMap<String, String> selectedRecord = displayResultController.recordList.get(position);
+                HashMap<String, String> selectedRecord = displayResultController.getRecordList().get(position);
                 //HashMap<String, String> selectedRecord = DisplayResultController.recordList.get(position);
 
                 Intent intent = new Intent(DisplayResultUI.this, DetailedInformationUI.class);
@@ -128,15 +138,27 @@ public class DisplayResultUI extends AppCompatActivity implements Parcelable{
         );
 
         mySortButton = findViewById(R.id.sortButton);
-//        mySortButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(SortByName.sortData()) {
-//                    updateListView(displayResultController.recordList);
-//                    //updateListView(DisplayResultController.recordList);
-//                }
-//            }
-//        });
+        mySortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(SortByName.sortData()) {
+                    updateListView(displayResultController.getRecordList());
+                    //updateListView(DisplayResultController.recordList);
+                }
+            }
+        });
+    }
+
+    /*
+    get FILTER_MESSAGE from FilterUI
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                filterBool = data.getBooleanExtra(FilterUI.FILTER_MESSAGE, false);
+            }
+        }
     }
 
     // Click back button
@@ -159,10 +181,10 @@ public class DisplayResultUI extends AppCompatActivity implements Parcelable{
     }
 
     public void goToFilterView(View view){
-        if(displayResultController.recordList.size() != 0) {
+        if(displayResultController.getRecordList().size() != 0) {
             Intent intent = new Intent(this, FilterUI.class);
-            intent.putExtra("resultContr", (Parcelable) displayResultController);
-            startActivity(intent);
+            //startActivity(intent);
+            startActivityForResult(intent, 1);
         }
 
 //        if(DisplayResultController.recordList.size() != 0) {
