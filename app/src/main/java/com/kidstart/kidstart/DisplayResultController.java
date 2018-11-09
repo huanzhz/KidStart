@@ -17,10 +17,10 @@ public class DisplayResultController extends Observable {
     private ArrayList<HashMap<String, String>> tempRecordList;
 
     private FilterInterface filterController;
-    private FilterFactory filterFactory;
+    private FilterFactory filterFactory = new FilterFactory();
 
     private SortInterface sortController;
-    private SortFactory sortFactory;
+    private SortFactory sortFactory = new SortFactory();
 
     public DisplayResultController(Context ctx, String titleString, AppCompatActivity activity){
         context = ctx;
@@ -53,6 +53,7 @@ public class DisplayResultController extends Observable {
     //Message passed from FilterUI if checkBoxTicked
     public void filter(HashMap<String,String> filterList, ArrayList<String> filterTypeList){
         //run through each filterType in the filterTypeList, create appropriate filters and filter
+
         for(int i=0; i<filterTypeList.size(); i++){
             filterController = filterFactory.getFilter(filterTypeList.get(i));
             filterController.filter(this, filterList);
@@ -63,8 +64,8 @@ public class DisplayResultController extends Observable {
 
     public void sort(String sortType) {
         sortController = sortFactory.getSort(sortType);
-        boolean sortSuccessful =  sortController.sort();
-        if(sortSuccessful) {
+        boolean sortSuccessful = sortController.sort();
+        if (sortSuccessful) {
             setChanged();
             notifyObservers();
         }
