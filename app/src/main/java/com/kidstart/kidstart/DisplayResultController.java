@@ -53,7 +53,6 @@ public class DisplayResultController extends Observable {
     //Message passed from FilterUI if checkBoxTicked
     public void filter(HashMap<String,String> filterList, ArrayList<String> filterTypeList){
         //run through each filterType in the filterTypeList, create appropriate filters and filter
-
         for(int i=0; i<filterTypeList.size(); i++){
             filterController = filterFactory.getFilter(filterTypeList.get(i));
             filterController.filter(this, filterList);

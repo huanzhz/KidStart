@@ -81,12 +81,12 @@ public class FilterUI extends AppCompatActivity {
 
 //        Intent intent = new Intent(this, DisplayResultUI.class);
         Intent intent = new Intent();
-        if(checkBoxTicked) {
-            if(displayResultController.getRecordList().size() == 0){
-                // Create a copied of the original
-                displayResultController.recordCopy(displayResultController.getTempRecordList(), displayResultController.getRecordList());
-            }
-        }
+//        if(checkBoxTicked) {
+//            if(displayResultController.getRecordList().size() == 0){
+//                // Create a copied of the original
+//                displayResultController.recordCopy(displayResultController.getTempRecordList(), displayResultController.getRecordList());
+//            }
+//        }
         setResult(RESULT_OK, intent);
         finish();
     }
