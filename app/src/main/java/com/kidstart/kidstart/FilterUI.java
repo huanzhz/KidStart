@@ -1,8 +1,6 @@
 package com.kidstart.kidstart;
 
 import android.content.Intent;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,7 +40,6 @@ public class FilterUI extends AppCompatActivity {
         // System Back button enable
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //displayResultController = getIntent().getParcelableExtra("resultContr");
         displayResultController = singletonManager.getDisplayResultControllerInstance();
     }
 
@@ -71,8 +68,7 @@ public class FilterUI extends AppCompatActivity {
      */
     public void goToListView(View view){
         // Create a copied of the original and remove them by filtering
-//      DisplayResultController.recordCopy(DisplayResultController.tempRecordList, DisplayResultController.recordList);
-        displayResultController.recordCopy(displayResultController.getTempRecordList(), displayResultController.getTempRecordList());
+        displayResultController.recordCopy(displayResultController.getTempRecordList(), displayResultController.getRecordList());
 
         if(cbChinese.isChecked()) {
             filterList.put("Chinese","1");
@@ -102,11 +98,6 @@ public class FilterUI extends AppCompatActivity {
 //        Intent intent = new Intent(this, DisplayResultUI.class);
         Intent intent = new Intent();
         if(checkBoxTicked) {
-//            if(DisplayResultController.recordList.size() == 0){
-//                // Create a copied of the original
-//                DisplayResultController.recordCopy(DisplayResultController.tempRecordList, DisplayResultController.recordList);
-//                intent.putExtra(FILTER_MESSAGE, true);
-//            }
             if(displayResultController.getRecordList().size() == 0){
                 // Create a copied of the original
                 displayResultController.recordCopy(displayResultController.getTempRecordList(), displayResultController.getRecordList());

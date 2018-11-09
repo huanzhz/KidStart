@@ -28,15 +28,13 @@ public class APIController extends AsyncTask<Void, Void, Void> {
     private Context mContext;
     private String titleString;
     private AppCompatActivity mainActivity;
-    private DisplayResultController displayResultController;
     private ArrayList<HashMap<String, String>> recordList;
     private ArrayList<HashMap<String, String>> tmpRecordList;
 
-    public APIController(Context ctx, String titleString, AppCompatActivity activity, DisplayResultController ref, ArrayList<HashMap<String, String>> recordList, ArrayList<HashMap<String, String>> tmpRecordList){
+    public APIController(Context ctx, String titleString, AppCompatActivity activity, ArrayList<HashMap<String, String>> recordList, ArrayList<HashMap<String, String>> tmpRecordList){
         this.mContext = ctx;
         this.titleString = titleString;
         mainActivity = activity;
-        displayResultController = ref;
         this.recordList = recordList;
         this.tmpRecordList = tmpRecordList;
     }
@@ -109,15 +107,9 @@ public class APIController extends AsyncTask<Void, Void, Void> {
                     childCareRecord.put("weekdayFullDay", weekday_full_day);
                     childCareRecord.put("testID", _id);
 
-//                    // Adding record to record list
-//                    DisplayResultController.recordList.add(childCareRecord);
-//                    // Add another record for filtering
-//                    DisplayResultController.tempRecordList.add(childCareRecord);
                     // Adding record to record list
-                    //displayResultController.recordList.add(childCareRecord);
                     recordList.add(childCareRecord);
                     // Add another record for filtering
-                    //displayResultController.tempRecordList.add(childCareRecord);
                     tmpRecordList.add(childCareRecord);
                 }
             }catch (final JSONException e){
@@ -141,14 +133,12 @@ public class APIController extends AsyncTask<Void, Void, Void> {
         implement Observer pattern here, notify DisplayResultUI to updateListView
         to do the following from DisplayResultUI
          */
-//        if(DisplayResultController.recordList.size() == 0){
         if(recordList.size() == 0){
             // Popup show no result found
             FailureDialog exampleDialog = new FailureDialog();
             exampleDialog.show(mainActivity.getSupportFragmentManager(), "example dialog");
         }else {
             ListAdapter adapter = new SimpleAdapter(
-//                    mContext, DisplayResultController.recordList,
                     mContext, recordList,
                     R.layout.school_listing, new String[]{"centreName", "centreAddress", "testID", "secondLanguagesOffered"},
                     new int[]{R.id.name, R.id.location, R.id.operationhour, R.id.test1});

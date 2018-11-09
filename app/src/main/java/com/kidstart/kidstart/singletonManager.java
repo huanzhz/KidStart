@@ -30,4 +30,5 @@ public class singletonManager {
     public static DisplayResultController getDisplayResultControllerInstance(){
         return displayResultController;
     }
+
 }

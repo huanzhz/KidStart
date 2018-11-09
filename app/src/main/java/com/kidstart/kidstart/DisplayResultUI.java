@@ -44,16 +44,7 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
         displayResultListView = (ListView) findViewById(R.id.listView);
         filterBool = false;
 
-        //Check for incoming activity
-//        Intent intent = getIntent();
-//        if(intent.getExtras() != null) {
-//            if(intent.getExtras().containsKey(FilterUI.FILTER_MESSAGE)){
-//                filterBool = intent.getExtras().getBoolean(FilterUI.FILTER_MESSAGE);
-//            }
-//            if(intent.getExtras().containsKey(MainActivity.MAIN_MESSAGE)){
-//                titleString = intent.getExtras().getString(MainActivity.MAIN_MESSAGE);
-//            }
-//        }
+        // Check for incoming activity
         Intent intent = getIntent();
         //replace !=null to onActivityResult()
         if(intent.getExtras() != null) {
@@ -77,31 +68,12 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
             }
         }
 
-//        // Add in record if it is empty else update the view
-//        if(DisplayResultController.recordList.size() == 0 && DisplayResultController.tempRecordList.size() == 0){
-//            // Create a new object to fetch the data
-//            DisplayResultController.collateResult(DisplayResultUI.this, titleString, DisplayResultUI.this);
-//            // Similar to this code - "
-//            //      APIController process = new APIController(DisplayResultUI.this);
-//            //      process.execute();
-//            // "
-//        }else {
-//            updateListView(DisplayResultController.recordList);
-//            // If there is no record show a pop up
-//            if(filterBool) {
-//                // Popup show no result found
-//                FailureDialog exampleDialog = new FailureDialog();
-//                exampleDialog.show(getSupportFragmentManager(), "example dialog");
-//            }
-//        }
-
         // Button
         // Display more infomation about the centre
         displayResultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HashMap<String, String> selectedRecord = displayResultController.getRecordList().get(position);
-                //HashMap<String, String> selectedRecord = DisplayResultController.recordList.get(position);
 
                 Intent intent = new Intent(DisplayResultUI.this, DetailedInformationUI.class);
 
@@ -131,6 +103,14 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 filterBool = data.getBooleanExtra(FilterUI.FILTER_MESSAGE, false);
+                // Update the view
+                updateListView(displayResultController.getRecordList());
+                // If there is no record show a pop up
+                if(filterBool) {
+                    // Popup show no result found
+                    FailureDialog exampleDialog = new FailureDialog();
+                    exampleDialog.show(getSupportFragmentManager(), "example dialog");
+                }
             }
         }
     }
@@ -173,16 +153,11 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
     }
 
     public void goToFilterView(View view){
-        if(displayResultController.getRecordList().size() != 0) {
+        if(displayResultController.getTempRecordList().size() != 0) {
             Intent intent = new Intent(this, FilterUI.class);
             //startActivity(intent);
             startActivityForResult(intent, 1);
         }
-
-//        if(DisplayResultController.recordList.size() != 0) {
-//            Intent intent = new Intent(this, FilterUI.class);
-//            startActivity(intent);
-//        }
     }
 
 }

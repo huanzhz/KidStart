@@ -47,12 +47,12 @@ public class DisplayResultController extends Observable {
 
     //Message passed from FilterUI if checkBoxTicked
     public void filter(HashMap<String,String> filterList){
-        filterController.filterRace(filterList);
+        filterController.filterRace(this, filterList);
         notifyObservers();
     }
 
     public void collateResult(){
-        new APIController(context, titleString, appActivity, this, recordList, tempRecordList).execute();
+        new APIController(context, titleString, appActivity, recordList, tempRecordList).execute();
     };
 
     public void setNew(Context ctx, String titleString, AppCompatActivity activity) {

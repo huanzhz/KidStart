@@ -9,13 +9,12 @@ import java.util.Observable;
  * @author HuanZhang
  */
 public class FilterController {
-    private DisplayResultController displayResultController = singletonManager.getDisplayResultControllerInstance();
 
-    public FilterController(){
-
+    public FilterController() {
     }
 
-    public void filterRace(HashMap<String,String> filterList){
+    public void filterRace(DisplayResultController displayResultController,HashMap<String,String> filterList){
+
         // Loop through the array to see which is not suitable for the filter
         for (int i = displayResultController.getTempRecordList().size()-1; i >= 0; i--) {
 
