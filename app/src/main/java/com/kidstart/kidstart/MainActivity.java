@@ -22,14 +22,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Create a space/address for the record
-        if(DisplayResultController.recordList == null){
-            DisplayResultController.recordList = new ArrayList<>();
-            DisplayResultController.tempRecordList = new ArrayList<>();
-        }else{
-            DisplayResultController.resetArray();
-        }
     }
 
     public void displayResultView(View view){

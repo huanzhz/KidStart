@@ -26,5 +26,6 @@ public class DetailedInformationUI extends AppCompatActivity {
         infoNameText1.setText(hashMap.get("centreAddress"));
         TextView infoNameText2 = findViewById(R.id.infoName2);
         infoNameText2.setText(hashMap.get("centreWebsite"));
+
     }
 }

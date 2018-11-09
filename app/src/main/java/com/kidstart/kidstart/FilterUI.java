@@ -21,6 +21,9 @@ public class FilterUI extends AppCompatActivity {
     Button submitBtn;
     Boolean checkBoxTicked;
 
+    private DisplayResultController displayResultController;
+//    private FilterController filterController = new FilterController();
+
     HashMap<String,String> filterList = new HashMap<String, String>();
 
     @Override
@@ -36,6 +39,8 @@ public class FilterUI extends AppCompatActivity {
 
         // System Back button enable
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        displayResultController = singletonManager.getDisplayResultControllerInstance();
     }
 
     /**
@@ -43,16 +48,16 @@ public class FilterUI extends AppCompatActivity {
      */
     public void filterRace(){
         // Loop through the array to see which is not suitable for the filter
-        for (int i = DisplayResultController.tempRecordList.size()-1; i >= 0; i--) {
+        for (int i = displayResultController.getTempRecordList().size()-1; i >= 0; i--) {
 
             // If the record is match do not remove it
             // String[] checked=["1","1","0"];
-            if(DisplayResultController.tempRecordList.get(i).get("Chinese").equals(filterList.get("Chinese")) &&
-                    DisplayResultController.tempRecordList.get(i).get("Malay").equals(filterList.get("Malay")) &&
-                    DisplayResultController.tempRecordList.get(i).get("Tamil").equals(filterList.get("Tamil")) ){
+            if(displayResultController.getTempRecordList().get(i).get("Chinese").equals(filterList.get("Chinese")) &&
+                    displayResultController.getTempRecordList().get(i).get("Malay").equals(filterList.get("Malay")) &&
+                    displayResultController.getTempRecordList().get(i).get("Tamil").equals(filterList.get("Tamil")) ){
                 continue;
             } else {
-                DisplayResultController.recordList.remove(i);
+                displayResultController.getRecordList().remove(i);
             }
         }
     }
@@ -63,7 +68,7 @@ public class FilterUI extends AppCompatActivity {
      */
     public void goToListView(View view){
         // Create a copied of the original and remove them by filtering
-        DisplayResultController.recordCopy(DisplayResultController.tempRecordList, DisplayResultController.recordList);
+        displayResultController.recordCopy(displayResultController.getTempRecordList(), displayResultController.getRecordList());
 
         if(cbChinese.isChecked()) {
             filterList.put("Chinese","1");
@@ -86,19 +91,22 @@ public class FilterUI extends AppCompatActivity {
 
         // If the checkBox for races is ticked
         if(checkBoxTicked){
-            filterRace();
+            //filter will be managed by displayResultController
+            displayResultController.filter(filterList);
         }
 
-        Intent intent = new Intent(this, DisplayResultUI.class);
+//        Intent intent = new Intent(this, DisplayResultUI.class);
+        Intent intent = new Intent();
         if(checkBoxTicked) {
-            if(DisplayResultController.recordList.size() == 0){
+            if(displayResultController.getRecordList().size() == 0){
                 // Create a copied of the original
-                DisplayResultController.recordCopy(DisplayResultController.tempRecordList, DisplayResultController.recordList);
+                displayResultController.recordCopy(displayResultController.getTempRecordList(), displayResultController.getRecordList());
                 intent.putExtra(FILTER_MESSAGE, true);
             }
         }else{
-            intent.putExtra(FILTER_MESSAGE, false);
+            intent.putExtra(FILTER_MESSAGE, true);
         }
-        startActivity(intent);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

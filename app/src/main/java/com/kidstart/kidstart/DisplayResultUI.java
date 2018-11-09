@@ -1,8 +1,11 @@
 package com.kidstart.kidstart;
 
 import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -11,23 +14,21 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Observer;
+import java.util.Observable;
 
 /**
  * This is the result display class.
  * @author HuanZhang
  */
-public class DisplayResultUI extends AppCompatActivity {
+public class DisplayResultUI extends AppCompatActivity implements Observer{
 
     public static ListView displayResultListView;
     private Button mySortButton;
     private boolean filterBool;
     private String titleString;
-
-    //ArrayList<HashMap<Stsring, String>> recordList;
-    HashMap<String,String> filterhashMap = new HashMap<String, String>();
+    private DisplayResultController displayResultController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,25 +46,20 @@ public class DisplayResultUI extends AppCompatActivity {
 
         // Check for incoming activity
         Intent intent = getIntent();
+        //replace !=null to onActivityResult()
         if(intent.getExtras() != null) {
-            if(intent.getExtras().containsKey(FilterUI.FILTER_MESSAGE)){
-                filterBool = intent.getExtras().getBoolean(FilterUI.FILTER_MESSAGE);
-            }
             if(intent.getExtras().containsKey(MainActivity.MAIN_MESSAGE)){
                 titleString = intent.getExtras().getString(MainActivity.MAIN_MESSAGE);
             }
         }
 
-        // Add in record if it is empty else update the view
-        if(DisplayResultController.recordList.size() == 0 && DisplayResultController.tempRecordList.size() == 0){
+        displayResultController = singletonManager.getDisplayResultControllerInstance(DisplayResultUI.this, titleString, DisplayResultUI.this);
+
+        if(displayResultController.getRecordList().size() == 0 && displayResultController.getTempRecordList().size() == 0) {
             // Create a new object to fetch the data
-            new APIController(DisplayResultUI.this, titleString, DisplayResultUI.this).execute();
-            // Similar to this code - "
-            //      APIController process = new APIController(DisplayResultUI.this);
-            //      process.execute();
-            // "
+            displayResultController.collateResult();
         }else {
-            updateListView(DisplayResultController.recordList);
+            updateListView(displayResultController.getRecordList());
             // If there is no record show a pop up
             if(filterBool) {
                 // Popup show no result found
@@ -77,13 +73,12 @@ public class DisplayResultUI extends AppCompatActivity {
         displayResultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HashMap<String, String> selectedRecord = displayResultController.getRecordList().get(position);
 
-            HashMap<String, String> selectedRecord = DisplayResultController.recordList.get(position);
+                Intent intent = new Intent(DisplayResultUI.this, DetailedInformationUI.class);
 
-            Intent intent = new Intent(DisplayResultUI.this, DetailedInformationUI.class);
-
-            intent.putExtra("hashMapMessage", selectedRecord);
-            startActivity(intent);
+                intent.putExtra("hashMapMessage", selectedRecord);
+                startActivity(intent);
                  }
             }
         );
@@ -93,10 +88,57 @@ public class DisplayResultUI extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(SortByName.sortData()) {
-                    updateListView(DisplayResultController.recordList);
+                    updateListView(displayResultController.getRecordList());
+                    //updateListView(DisplayResultController.recordList);
                 }
             }
         });
+    }
+
+    /*
+    get FILTER_MESSAGE from FilterUI
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                filterBool = data.getBooleanExtra(FilterUI.FILTER_MESSAGE, false);
+                // Update the view
+                updateListView(displayResultController.getRecordList());
+                // If there is no record show a pop up
+                if(filterBool) {
+                    // Popup show no result found
+                    FailureDialog exampleDialog = new FailureDialog();
+                    exampleDialog.show(getSupportFragmentManager(), "example dialog");
+                }
+            }
+        }
+    }
+
+    // Click back button
+    public boolean onOptionsItemSelected(MenuItem item){
+        displayResultController.resetArray();
+        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+    }
+
+    //Override method in ListResultObserver, and do something if Subject notifies
+    @Override
+    public void update(Observable observable, Object o){
+        //TODO
+        if (observable instanceof DisplayResultController) {
+            updateListView();
+        }
+    }
+
+    public void updateListView(){
+        ListAdapter adapter = new SimpleAdapter(
+                DisplayResultUI.this, displayResultController.getRecordList(),
+                R.layout.school_listing, new String[]{"centreName", "centreAddress", "testID", "secondLanguagesOffered"},
+                new int[]{R.id.name, R.id.location, R.id.operationhour, R.id.test1});
+
+        displayResultListView.setAdapter(adapter);
     }
 
     public void updateListView(ArrayList arrayList){
@@ -111,9 +153,11 @@ public class DisplayResultUI extends AppCompatActivity {
     }
 
     public void goToFilterView(View view){
-        if(DisplayResultController.recordList.size() != 0) {
+        if(displayResultController.getTempRecordList().size() != 0) {
             Intent intent = new Intent(this, FilterUI.class);
-            startActivity(intent);
+            //startActivity(intent);
+            startActivityForResult(intent, 1);
         }
     }
+
 }
