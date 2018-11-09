@@ -75,9 +75,7 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
         mySortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(SortByName.sortData()) {
-                    updateListView();
-                }
+                sortListView("name");
             }
         });
     }
@@ -97,6 +95,11 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
         if (observable instanceof DisplayResultController) {
             updateListView();
         }
+    }
+
+    public void sortListView(String sortType) {
+        //onClick for which sort button
+        displayResultController.sort(sortType);
     }
 
     public void updateListView(){

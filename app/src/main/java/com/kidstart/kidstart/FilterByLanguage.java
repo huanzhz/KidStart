@@ -8,12 +8,12 @@ import java.util.Observable;
  * This class implement the getAPI method
  * @author HuanZhang
  */
-public class FilterController {
+public class FilterByLanguage implements FilterInterface {
 
-    public FilterController() {
+    public FilterByLanguage() {
     }
 
-    public void filterRace(DisplayResultController displayResultController,HashMap<String,String> filterList){
+    public void filter(DisplayResultController displayResultController, HashMap<String,String> filterList){
 
         // Loop through the array to see which is not suitable for the filter
         for (int i = displayResultController.getTempRecordList().size()-1; i >= 0; i--) {

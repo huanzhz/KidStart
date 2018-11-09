@@ -16,7 +16,11 @@ public class DisplayResultController extends Observable {
     private ArrayList<HashMap<String, String>> recordList;
     private ArrayList<HashMap<String, String>> tempRecordList;
 
-    private FilterController filterController = new FilterController();
+    private FilterInterface filterController;
+    private FilterFactory filterFactory;
+
+    private SortInterface sortController;
+    private SortFactory sortFactory;
 
     public DisplayResultController(Context ctx, String titleString, AppCompatActivity activity){
         context = ctx;
@@ -47,10 +51,23 @@ public class DisplayResultController extends Observable {
     }
 
     //Message passed from FilterUI if checkBoxTicked
-    public void filter(HashMap<String,String> filterList){
-        filterController.filterRace(this, filterList);
+    public void filter(HashMap<String,String> filterList, ArrayList<String> filterTypeList){
+        //run through each filterType in the filterTypeList, create appropriate filters and filter
+        for(int i=0; i<filterTypeList.size(); i++){
+            filterController = filterFactory.getFilter(filterTypeList.get(i));
+            filterController.filter(this, filterList);
+        }
         setChanged();
         notifyObservers();
+    }
+
+    public void sort(String sortType) {
+        sortController = sortFactory.getSort(sortType);
+        boolean sortSuccessful =  sortController.sort();
+        if(sortSuccessful) {
+            setChanged();
+            notifyObservers();
+        }
     }
 
     public void collateResult(){

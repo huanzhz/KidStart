@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -15,16 +16,17 @@ import java.util.HashMap;
  */
 public class FilterUI extends AppCompatActivity {
 
-    public static final String FILTER_MESSAGE = "com.kidstart.kidstart.FILTERMESSAGE";
+    private final String FILTER_MESSAGE = "com.kidstart.kidstart.FILTERMESSAGE";
 
     CheckBox cbChinese, cbMalay, cbTamil;
     Button submitBtn;
     Boolean checkBoxTicked;
 
     private DisplayResultController displayResultController;
-//    private FilterController filterController = new FilterController();
+//    private FilterByLanguage filterController = new FilterByLanguage();
 
     HashMap<String,String> filterList = new HashMap<String, String>();
+    private ArrayList<String> filterTypeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +74,9 @@ public class FilterUI extends AppCompatActivity {
 
         // If the checkBox for races is ticked
         if(checkBoxTicked){
-            //filter will be managed by displayResultController
-            displayResultController.filter(filterList);
+            //check out FilterFactory to create new filter creation
+            filterTypeList.add("language");
+            displayResultController.filter(filterList, filterTypeList);
         }
 
 //        Intent intent = new Intent(this, DisplayResultUI.class);

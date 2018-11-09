@@ -8,15 +8,14 @@ import java.util.HashMap;
  * This class implement the Sort method
  * @author HuanZhang
  */
-public class SortByName {
+public class SortByName implements SortInterface {
 
     /**
      * Sort the name of the centre in ascending order
      * @return true if successfully sorted
      */
-    public static boolean sortData(){
+    public boolean sort(){
         DisplayResultController displayerResultController = SingletonManager.getDisplayResultControllerInstance();
-
         if(displayerResultController.getRecordList().size() != 0) {
             //ArrayList< HashMap< String,String >> arrayList= recordList;
             Collections.sort(displayerResultController.getRecordList(), new Comparator<HashMap<String, String>>() {
