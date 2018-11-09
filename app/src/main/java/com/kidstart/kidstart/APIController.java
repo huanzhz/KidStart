@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -128,6 +126,6 @@ public class APIController extends AsyncTask<Void, Void, Void> {
             pDialog.dismiss();
         }
 
-        singletonManager.getDisplayResultControllerInstance().onPostExecuteAPI();
+        SingletonManager.getDisplayResultControllerInstance().onPostExecuteAPI();
     }
 }

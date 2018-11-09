@@ -1,8 +1,6 @@
 package com.kidstart.kidstart;
 
 import android.content.Intent;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,7 +11,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observer;
 import java.util.Observable;
@@ -51,7 +48,7 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
             }
         }
 
-        displayResultController = singletonManager.getDisplayResultControllerInstance(DisplayResultUI.this, titleString, DisplayResultUI.this);
+        displayResultController = SingletonManager.getDisplayResultControllerInstance(DisplayResultUI.this, titleString, DisplayResultUI.this);
         displayResultController.addObserver(this);
 
         if(displayResultController.getRecordList().size() == 0 && displayResultController.getTempRecordList().size() == 0) {

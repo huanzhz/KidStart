@@ -40,7 +40,7 @@ public class FilterUI extends AppCompatActivity {
         // System Back button enable
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        displayResultController = singletonManager.getDisplayResultControllerInstance();
+        displayResultController = SingletonManager.getDisplayResultControllerInstance();
     }
 
     /**

@@ -1,7 +1,5 @@
 package com.kidstart.kidstart;
 
-import android.view.Display;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -17,7 +15,7 @@ public class SortByName {
      * @return true if successfully sorted
      */
     public static boolean sortData(){
-        DisplayResultController displayerResultController = singletonManager.getDisplayResultControllerInstance();
+        DisplayResultController displayerResultController = SingletonManager.getDisplayResultControllerInstance();
 
         if(displayerResultController.getRecordList().size() != 0) {
             //ArrayList< HashMap< String,String >> arrayList= recordList;
