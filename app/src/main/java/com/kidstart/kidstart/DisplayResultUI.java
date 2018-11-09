@@ -26,7 +26,6 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
 
     public static ListView displayResultListView;
     private Button mySortButton;
-    private boolean filterBool;
     private String titleString;
     private DisplayResultController displayResultController;
 
@@ -42,7 +41,6 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
 
         // Initialise the button and variables
         displayResultListView = (ListView) findViewById(R.id.listView);
-        filterBool = false;
 
         // Check for incoming activity
         Intent intent = getIntent();
@@ -54,18 +52,11 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
         }
 
         displayResultController = singletonManager.getDisplayResultControllerInstance(DisplayResultUI.this, titleString, DisplayResultUI.this);
+        displayResultController.addObserver(this);
 
         if(displayResultController.getRecordList().size() == 0 && displayResultController.getTempRecordList().size() == 0) {
             // Create a new object to fetch the data
             displayResultController.collateResult();
-        }else {
-            updateListView(displayResultController.getRecordList());
-            // If there is no record show a pop up
-            if(filterBool) {
-                // Popup show no result found
-                FailureDialog exampleDialog = new FailureDialog();
-                exampleDialog.show(getSupportFragmentManager(), "example dialog");
-            }
         }
 
         // Button
@@ -88,31 +79,10 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
             @Override
             public void onClick(View v) {
                 if(SortByName.sortData()) {
-                    updateListView(displayResultController.getRecordList());
-                    //updateListView(DisplayResultController.recordList);
+                    updateListView();
                 }
             }
         });
-    }
-
-    /*
-    get FILTER_MESSAGE from FilterUI
-     */
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if(resultCode == RESULT_OK) {
-                filterBool = data.getBooleanExtra(FilterUI.FILTER_MESSAGE, false);
-                // Update the view
-                updateListView(displayResultController.getRecordList());
-                // If there is no record show a pop up
-                if(filterBool) {
-                    // Popup show no result found
-                    FailureDialog exampleDialog = new FailureDialog();
-                    exampleDialog.show(getSupportFragmentManager(), "example dialog");
-                }
-            }
-        }
     }
 
     // Click back button
@@ -135,17 +105,6 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
     public void updateListView(){
         ListAdapter adapter = new SimpleAdapter(
                 DisplayResultUI.this, displayResultController.getRecordList(),
-                R.layout.school_listing, new String[]{"centreName", "centreAddress", "testID", "secondLanguagesOffered"},
-                new int[]{R.id.name, R.id.location, R.id.operationhour, R.id.test1});
-
-        displayResultListView.setAdapter(adapter);
-    }
-
-    public void updateListView(ArrayList arrayList){
-        // Update jason data to listview
-        // SimpleAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to)
-        ListAdapter adapter = new SimpleAdapter(
-                DisplayResultUI.this, arrayList,
                 R.layout.school_listing, new String[]{"centreName", "centreAddress", "testID", "secondLanguagesOffered"},
                 new int[]{R.id.name, R.id.location, R.id.operationhour, R.id.test1});
 

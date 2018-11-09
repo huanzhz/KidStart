@@ -14,7 +14,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Observable;
 
 /**
  * This class implement the getAPI method
@@ -129,21 +128,6 @@ public class APIController extends AsyncTask<Void, Void, Void> {
             pDialog.dismiss();
         }
 
-        /*
-        implement Observer pattern here, notify DisplayResultUI to updateListView
-        to do the following from DisplayResultUI
-         */
-        if(recordList.size() == 0){
-            // Popup show no result found
-            FailureDialog exampleDialog = new FailureDialog();
-            exampleDialog.show(mainActivity.getSupportFragmentManager(), "example dialog");
-        }else {
-            ListAdapter adapter = new SimpleAdapter(
-                    mContext, recordList,
-                    R.layout.school_listing, new String[]{"centreName", "centreAddress", "testID", "secondLanguagesOffered"},
-                    new int[]{R.id.name, R.id.location, R.id.operationhour, R.id.test1});
-
-            DisplayResultUI.displayResultListView.setAdapter(adapter);
-        }
+        singletonManager.getDisplayResultControllerInstance().onPostExecuteAPI();
     }
 }

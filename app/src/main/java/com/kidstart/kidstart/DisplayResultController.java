@@ -41,6 +41,7 @@ public class DisplayResultController extends Observable {
             recordList.clear();
             tempRecordList.clear();
             //notify DisplayResultUI to updateListView
+            setChanged();
             notifyObservers();
         }
     }
@@ -48,12 +49,18 @@ public class DisplayResultController extends Observable {
     //Message passed from FilterUI if checkBoxTicked
     public void filter(HashMap<String,String> filterList){
         filterController.filterRace(this, filterList);
+        setChanged();
         notifyObservers();
     }
 
     public void collateResult(){
         new APIController(context, titleString, appActivity, recordList, tempRecordList).execute();
     };
+
+    public void onPostExecuteAPI() {
+        setChanged();
+        notifyObservers();
+    }
 
     public void setNew(Context ctx, String titleString, AppCompatActivity activity) {
         context = ctx;

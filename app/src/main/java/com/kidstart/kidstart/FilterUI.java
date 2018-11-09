@@ -44,25 +44,6 @@ public class FilterUI extends AppCompatActivity {
     }
 
     /**
-     * Compare the race to filter out the unwanted data.
-     */
-    public void filterRace(){
-        // Loop through the array to see which is not suitable for the filter
-        for (int i = displayResultController.getTempRecordList().size()-1; i >= 0; i--) {
-
-            // If the record is match do not remove it
-            // String[] checked=["1","1","0"];
-            if(displayResultController.getTempRecordList().get(i).get("Chinese").equals(filterList.get("Chinese")) &&
-                    displayResultController.getTempRecordList().get(i).get("Malay").equals(filterList.get("Malay")) &&
-                    displayResultController.getTempRecordList().get(i).get("Tamil").equals(filterList.get("Tamil")) ){
-                continue;
-            } else {
-                displayResultController.getRecordList().remove(i);
-            }
-        }
-    }
-
-    /**
      * Go to Display Result UI.
      * @param view
      */
@@ -101,10 +82,7 @@ public class FilterUI extends AppCompatActivity {
             if(displayResultController.getRecordList().size() == 0){
                 // Create a copied of the original
                 displayResultController.recordCopy(displayResultController.getTempRecordList(), displayResultController.getRecordList());
-                intent.putExtra(FILTER_MESSAGE, true);
             }
-        }else{
-            intent.putExtra(FILTER_MESSAGE, true);
         }
         setResult(RESULT_OK, intent);
         finish();
