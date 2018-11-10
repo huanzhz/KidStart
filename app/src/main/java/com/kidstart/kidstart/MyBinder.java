@@ -12,6 +12,7 @@ class MyBinder implements SimpleAdapter.ViewBinder {
             float ratingValue = Float.parseFloat(stringval);
             RatingBar ratingBar = (RatingBar) view;
             ratingBar.setRating(ratingValue);
+            ratingBar.setEnabled(false);
             return true;
         }
         return false;

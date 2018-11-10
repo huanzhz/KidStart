@@ -85,7 +85,9 @@ public class APIController extends AsyncTask<Void, Void, Void> {
                     String centre_website = c.getString("centre_website");
                     String second_languages_offered = c.getString("second_languages_offered");
                     String weekday_full_day = c.getString("weekday_full_day");
+                    String food_offered = c.getString("food_offered");
                     String _id = c.getString("_id"); // maybe need REMOVE REMOVE REMOVE
+
 
                     // [0, 100] + 300 => [300, 400]
                     String _price = String.valueOf(new Random().nextInt(101) + 300);
@@ -106,27 +108,9 @@ public class APIController extends AsyncTask<Void, Void, Void> {
                     childCareRecord.put("centreName", centre_name);
                     childCareRecord.put("centreAddress", centre_address);
                     childCareRecord.put("centreWebsite", centre_website);
-
-                    if(second_languages_offered.contains("Chinese")){
-                        childCareRecord.put("Chinese", "1");
-                    } else {
-                        childCareRecord.put("Chinese", "0");
-                    }
-
-                    if(second_languages_offered.contains("Malay")){
-                        childCareRecord.put("Malay", "1");
-                    } else {
-                        childCareRecord.put("Malay", "0");
-                    }
-
-                    if(second_languages_offered.contains("Tamil")){
-                        childCareRecord.put("Tamil", "1");
-                    } else {
-                        childCareRecord.put("Tamil", "0");
-                    }
-
                     childCareRecord.put("secondLanguagesOffered", second_languages_offered);
                     childCareRecord.put("weekdayFullDay", weekday_full_day);
+                    childCareRecord.put("foodOffered", food_offered);
                     childCareRecord.put("testID", _id);
                     childCareRecord.put("price", _price);
                     childCareRecord.put("rating", _rating);

@@ -1,16 +1,14 @@
 package com.kidstart.kidstart;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Observable;
 
 /**
- * This class implement the filter by language method
+ * This class implement the Filter by rating method
  * @author HuanZhang
  */
-public class FilterByLanguage implements FilterInterface {
+public class FilterByRating implements FilterInterface {
 
-    public FilterByLanguage() {
+    public FilterByRating() {
     }
 
     public void filter(DisplayResultController displayResultController, HashMap<String,String> filterList){
@@ -19,8 +17,7 @@ public class FilterByLanguage implements FilterInterface {
         for (int i = displayResultController.getRecordList().size()-1; i >= 0; i--) {
 
             // If the record is match do not remove it
-            // String[] checked=["1","1","0"];
-            if(displayResultController.getRecordList().get(i).get("secondLanguagesOffered").equals(filterList.get("language"))){
+            if(displayResultController.getRecordList().get(i).get("rating").equals(filterList.get("rating"))){
                 continue;
             } else {
                 displayResultController.getRecordList().remove(i);

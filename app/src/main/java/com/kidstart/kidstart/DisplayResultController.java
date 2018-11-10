@@ -83,7 +83,8 @@ public class DisplayResultController extends Observable {
         context = ctx;
         this.titleString = titleString;
         appActivity = activity;
-        resetArray();
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<HashMap<String, String>> getRecordList() {
