@@ -3,11 +3,14 @@ package com.kidstart.kidstart;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.HashMap;
 
 public class DetailedInformationUI extends AppCompatActivity {
+
+    private String titleString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,14 @@ public class DetailedInformationUI extends AppCompatActivity {
         infoNameText1.setText(hashMap.get("centreAddress"));
         TextView infoNameText2 = findViewById(R.id.infoName2);
         infoNameText2.setText(hashMap.get("centreWebsite"));
+        titleString = intent.getExtras().getString("Death");
+    }
 
+    // Click back button
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), DisplayResultUI.class);
+        myIntent.putExtra(MainActivity.MAIN_MESSAGE, titleString);
+        startActivityForResult(myIntent, 1);
+        return true;
     }
 }

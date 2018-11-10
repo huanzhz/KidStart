@@ -27,6 +27,7 @@ public class APIController extends AsyncTask<Void, Void, Void> {
     private AppCompatActivity mainActivity;
     private ArrayList<HashMap<String, String>> recordList;
     private ArrayList<HashMap<String, String>> tmpRecordList;
+    private boolean searchfilter = false;
 
     public APIController(Context ctx, String titleString, AppCompatActivity activity, ArrayList<HashMap<String, String>> recordList, ArrayList<HashMap<String, String>> tmpRecordList){
         this.mContext = ctx;
@@ -63,13 +64,23 @@ public class APIController extends AsyncTask<Void, Void, Void> {
 
                 // Loopong through all records
                 for(int i = 0; i < records.length(); i ++){
+                    searchfilter = false;
                     JSONObject c = records.getJSONObject(i);
 
                     String centre_name = c.getString("centre_name");
-                    if(!centre_name.contains(titleString)){
+                    String centre_address = c.getString("centre_address");
+                    // Check the string within the Name
+                    if(centre_name.contains(titleString)){
+                        searchfilter = true;
+                    }
+                    // Check the string within the Address or postal code
+                    if(centre_address.contains(titleString) && !searchfilter){
+                        searchfilter = true;
+                    }
+                    // If the search not found then go to next iteration of the for loop
+                    if(!searchfilter){
                         continue;
                     }
-                    String centre_address = c.getString("centre_address");
                     String centre_website = c.getString("centre_website");
                     String second_languages_offered = c.getString("second_languages_offered");
                     String weekday_full_day = c.getString("weekday_full_day");

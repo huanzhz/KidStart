@@ -39,6 +39,7 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
         // Initialise the button and variables
         displayResultListView = (ListView) findViewById(R.id.listView);
 
+        titleString = "";
         // Check for incoming activity
         Intent intent = getIntent();
         //replace !=null to onActivityResult()
@@ -66,6 +67,7 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
                 Intent intent = new Intent(DisplayResultUI.this, DetailedInformationUI.class);
 
                 intent.putExtra("hashMapMessage", selectedRecord);
+                intent.putExtra("Death",titleString);
                 startActivity(intent);
                  }
             }
