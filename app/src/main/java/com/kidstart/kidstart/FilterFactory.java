@@ -15,6 +15,12 @@ public class FilterFactory {
         else if(filterType == "level"){
             return new FilterByLevel();
         }
+        else if(filterType == "hour"){
+            return new FilterByHour();
+        }
+        else if(filterType == "price"){
+            return new FilterByPrice();
+        }
         return null;
     }
 }

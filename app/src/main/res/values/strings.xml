@@ -29,4 +29,10 @@
         <item>K1</item>
         <item>K2</item>
     </string-array>
+
+    <string-array name="hour">
+        <item>FULL</item>
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
 </resources>

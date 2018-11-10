@@ -36,15 +36,15 @@ public class DetailedInformationUI extends AppCompatActivity {
         infoAddressTextView = findViewById(R.id.infoAddress);
         infoAddressTextView.setText(hashMap.get("centreAddress"));
         infoPriceTextView = findViewById(R.id.infoPrice);
-        infoPriceTextView.setText("School Fees:"+hashMap.get("price"));
+        infoPriceTextView.setText("School Fees: "+hashMap.get("price"));
         infoLevelOfferTextView = findViewById(R.id.infoLevelOffer);
         infoLevelOfferTextView.setText("Levels offered: PG,N1,N2,K1,K2");
         infoLanguageTextView = findViewById(R.id.infoLanguage);
-        infoLanguageTextView.setText("Second Languages:"+hashMap.get("secondLanguagesOffered"));
+        infoLanguageTextView.setText("Second Languages: "+hashMap.get("secondLanguagesOffered"));
         infoFoodTextView = findViewById(R.id.infoFood);
-        infoFoodTextView.setText("Food Catered:"+hashMap.get("foodOffered"));
+        infoFoodTextView.setText("Food Catered: "+hashMap.get("foodOffered"));
         infoHourTextView = findViewById(R.id.infoHour);
-        infoHourTextView.setText("Hour of care:"+hashMap.get("weekday_full_day"));
+        infoHourTextView.setText("Hour of care: "+hashMap.get("weekday_full_day"));
         infoReviewTextView = findViewById(R.id.infoReview);
         infoReviewTextView.setText(hashMap.get("review"));
 

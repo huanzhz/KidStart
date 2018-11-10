@@ -23,7 +23,7 @@
             android:layout_height="81dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="34dp"
             app:srcCompat="@drawable/title" />
 
         <LinearLayout
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="391dp"
             android:layout_below="@+id/imageView"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="29dp"
             android:gravity="top|center_vertical|center"
             android:orientation="vertical">
 
@@ -73,6 +73,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="2dp"
+                android:layout_marginBottom="20dp"
                 android:text="Questionnarie"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

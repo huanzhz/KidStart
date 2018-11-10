@@ -3,12 +3,12 @@ package com.kidstart.kidstart;
 import java.util.HashMap;
 
 /**
- * This class implement the Filter by food preference method
+ * This class implement the Filter by price method
  * @author HuanZhang
  */
-public class FilterByFood implements FilterInterface {
+public class FilterByPrice implements FilterInterface {
 
-    public FilterByFood() {
+    public FilterByPrice() {
     }
 
     public void filter(DisplayResultController displayResultController, HashMap<String,String> filterList){

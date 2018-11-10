@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,9 +20,11 @@ import java.util.HashMap;
  */
 public class FilterUI extends AppCompatActivity {
 
-    private Spinner ratingSpinner, foodSpinner, languageSpinner, levelSpinner;
-    private ArrayAdapter<String> ratingAdapter, foodAdapter, languageAdapter, levelAdapter;
-
+    private Spinner ratingSpinner, foodSpinner, languageSpinner, levelSpinner, hourSpinner;
+    private ArrayAdapter<String> ratingAdapter, foodAdapter, languageAdapter, levelAdapter, hourAdapter;
+    private SeekBar schoolFeeSeekbar;
+    private TextView schoolvalueTextView;
+    private int schoolValueProgress = 100;
     private DisplayResultController displayResultController;
 
     HashMap<String,String> filterList = new HashMap<String, String>();
@@ -33,10 +37,32 @@ public class FilterUI extends AppCompatActivity {
 
         filterTypeList.clear();
 
+        schoolFeeSeekbar = (SeekBar) findViewById(R.id.schoolFeeSeekBar);
+        schoolvalueTextView   = (TextView) findViewById(R.id.filterSchoolValue);
+
+        schoolFeeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                schoolValueProgress = progress;
+                schoolvalueTextView.setText("$" + schoolValueProgress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         ratingSpinner   = (Spinner) findViewById(R.id.filterRatingSpinner);
         foodSpinner     = (Spinner) findViewById(R.id.filterFoodSpinner);
         languageSpinner = (Spinner) findViewById(R.id.filterLanguageSpinner);
         levelSpinner    = (Spinner) findViewById(R.id.filterLevelSpinner);
+        hourSpinner     = (Spinner) findViewById(R.id.filterHourSpinner);
 
         ratingAdapter   = new ArrayAdapter<String>(FilterUI.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.ratings));
@@ -50,12 +76,17 @@ public class FilterUI extends AppCompatActivity {
         levelAdapter = new ArrayAdapter<String>(FilterUI.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.level));
         levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        hourAdapter = new ArrayAdapter<String>(FilterUI.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.hour));
+        hourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 
 
         ratingSpinner.setAdapter(ratingAdapter);
         foodSpinner.setAdapter(foodAdapter);
         languageSpinner.setAdapter(languageAdapter);
         levelSpinner.setAdapter(levelAdapter);
+        hourSpinner.setAdapter(hourAdapter);
 
         // System Back button enable
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -74,17 +105,17 @@ public class FilterUI extends AppCompatActivity {
         // Get the result of spinner
         String ratingString = ratingSpinner.getSelectedItem().toString();
         filterList.put("rating",ratingString);
-        String foodString = foodSpinner.getSelectedItem().toString();
-        filterList.put("food",foodString);
+        //String foodString = foodSpinner.getSelectedItem().toString();
+        //filterList.put("food",foodString);
         String languageString = languageSpinner.getSelectedItem().toString();
         filterList.put("language",languageString);
-        String levelString = languageSpinner.getSelectedItem().toString();
-        filterList.put("level",levelString);
+        //String levelString = languageSpinner.getSelectedItem().toString();
+        //filterList.put("level",levelString);
 
         filterTypeList.add("language");
         filterTypeList.add("rating");
-        filterTypeList.add("food");
-        filterTypeList.add("level");
+        //filterTypeList.add("food");
+        //filterTypeList.add("level");
         displayResultController.filter(filterList, filterTypeList);
 
         Intent intent = new Intent();
