@@ -1,6 +1,7 @@
 package com.kidstart.kidstart;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 
 import java.util.HashMap;
@@ -22,7 +24,8 @@ import java.util.Observable;
 public class DisplayResultUI extends AppCompatActivity implements Observer{
 
     public static ListView displayResultListView;
-    private Button mySortButton;
+    private Button nameSortButton, priceSortButton, distanceSortButton, ratingSortButton;
+    private RatingBar _ratingBar;
     private String titleString;
     private DisplayResultController displayResultController;
 
@@ -73,11 +76,55 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
             }
         );
 
-        mySortButton = findViewById(R.id.sortButton);
-        mySortButton.setOnClickListener(new View.OnClickListener() {
+        // Sort buttons initialise
+        nameSortButton = findViewById(R.id.sortButton);
+        priceSortButton = findViewById(R.id.priceButton);
+        distanceSortButton = findViewById(R.id.distanceButton);
+        ratingSortButton = findViewById(R.id.ratingButton);
+
+        nameSortButton.setBackgroundColor(Color.DKGRAY);
+        priceSortButton.setBackgroundColor(Color.GRAY);
+        distanceSortButton.setBackgroundColor(Color.GRAY);
+        ratingSortButton.setBackgroundColor(Color.GRAY);
+
+        nameSortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sortListView("name");
+                nameSortButton.setBackgroundColor(Color.DKGRAY);
+                priceSortButton.setBackgroundColor(Color.GRAY);
+                distanceSortButton.setBackgroundColor(Color.GRAY);
+                ratingSortButton.setBackgroundColor(Color.GRAY);
+            }
+        });
+        priceSortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortListView("price");
+                nameSortButton.setBackgroundColor(Color.GRAY);
+                priceSortButton.setBackgroundColor(Color.DKGRAY);
+                distanceSortButton.setBackgroundColor(Color.GRAY);
+                ratingSortButton.setBackgroundColor(Color.GRAY);
+            }
+        });
+        distanceSortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortListView("distance");
+                nameSortButton.setBackgroundColor(Color.GRAY);
+                priceSortButton.setBackgroundColor(Color.GRAY);
+                distanceSortButton.setBackgroundColor(Color.DKGRAY);
+                ratingSortButton.setBackgroundColor(Color.GRAY);
+            }
+        });
+        ratingSortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortListView("rating");
+                nameSortButton.setBackgroundColor(Color.GRAY);
+                priceSortButton.setBackgroundColor(Color.GRAY);
+                distanceSortButton.setBackgroundColor(Color.GRAY);
+                ratingSortButton.setBackgroundColor(Color.DKGRAY);
             }
         });
     }
@@ -107,9 +154,9 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
     public void updateListView(){
         ListAdapter adapter = new SimpleAdapter(
                 DisplayResultUI.this, displayResultController.getRecordList(),
-                R.layout.school_listing, new String[]{"centreName", "centreAddress", "testID", "secondLanguagesOffered"},
-                new int[]{R.id.name, R.id.location, R.id.operationhour, R.id.test1});
-
+                R.layout.school_listing, new String[]{"centreName", "rating", "price", "review"},
+                new int[]{R.id.nameTextView, R.id.ratingBar, R.id.priceTextView, R.id.reviewTextView});
+        ((SimpleAdapter) adapter).setViewBinder(new MyBinder());
         displayResultListView.setAdapter(adapter);
     }
 

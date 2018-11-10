@@ -5,9 +5,15 @@ public class SortFactory {
         if(sortType == "name") {
             return new SortByName();
         }
-//        else if(sortType == "blablabla"){
-//
-//        }
+        else if(sortType == "price"){
+            return new SortByPrice();
+        }
+        else if(sortType == "rating"){
+            return new SortByRating();
+        }
+        else if(sortType == "distance"){
+            return new SortByDistance();
+        }
         return null;
     }
 }

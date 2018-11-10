@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * This class implement the getAPI method
@@ -84,7 +85,20 @@ public class APIController extends AsyncTask<Void, Void, Void> {
                     String centre_website = c.getString("centre_website");
                     String second_languages_offered = c.getString("second_languages_offered");
                     String weekday_full_day = c.getString("weekday_full_day");
-                    String _id = c.getString("_id");
+                    String _id = c.getString("_id"); // maybe need REMOVE REMOVE REMOVE
+
+                    // [0, 100] + 300 => [300, 400]
+                    String _price = String.valueOf(new Random().nextInt(101) + 300);
+                    _price = "$"+_price+"   ";
+
+                    // [0, 5] => [0, 5]
+                    String _rating = String.valueOf(new Random().nextInt(6));
+
+                    // [0, 30] => [0, 30]
+                    String _review = String.valueOf(new Random().nextInt(31));
+                    _review = ""+_review+" Reviews";
+
+                    String _distance = String.valueOf(new Random().nextInt(101));
 
                     HashMap<String, String> childCareRecord = new HashMap<>();
 
@@ -114,6 +128,10 @@ public class APIController extends AsyncTask<Void, Void, Void> {
                     childCareRecord.put("secondLanguagesOffered", second_languages_offered);
                     childCareRecord.put("weekdayFullDay", weekday_full_day);
                     childCareRecord.put("testID", _id);
+                    childCareRecord.put("price", _price);
+                    childCareRecord.put("rating", _rating);
+                    childCareRecord.put("review", _review);
+                    childCareRecord.put("distance", _distance);
 
                     // Adding record to record list
                     recordList.add(childCareRecord);
