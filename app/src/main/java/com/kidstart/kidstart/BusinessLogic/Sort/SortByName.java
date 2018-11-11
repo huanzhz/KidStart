@@ -1,11 +1,23 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic.Sort;
+
+import com.kidstart.kidstart.BusinessLogic.DisplayResultController;
+import com.kidstart.kidstart.BusinessLogic.SingletonManager;
+import com.kidstart.kidstart.Presentation.SortInterface;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class SortByDistance implements SortInterface {
+/**
+ * This class implement the Sort method
+ * @author HuanZhang
+ */
+public class SortByName implements SortInterface {
 
+    /**
+     * Sort the name of the centre in ascending order
+     * @return true if successfully sorted
+     */
     public boolean sort(){
         DisplayResultController displayerResultController = SingletonManager.getDisplayResultControllerInstance();
         if(displayerResultController.getRecordList().size() != 0) {
@@ -16,7 +28,7 @@ public class SortByDistance implements SortInterface {
                 public int compare(HashMap<String, String> lhs,
                                    HashMap<String, String> rhs) {
                     // Do your comparison logic here and return accordingly.
-                    return (lhs.get("distance")).compareTo(rhs.get("distance"));
+                    return (lhs.get("centreName")).compareTo(rhs.get("centreName"));
                 }
             });
             return true;

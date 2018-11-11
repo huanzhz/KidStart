@@ -1,14 +1,17 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic.Filter;
+
+import com.kidstart.kidstart.BusinessLogic.DisplayResultController;
+import com.kidstart.kidstart.Presentation.FilterInterface;
 
 import java.util.HashMap;
 
 /**
- * This class implement the Filter by different child course method
+ * This class implement the Filter by operating hour method
  * @author HuanZhang
  */
-public class FilterByLevel implements FilterInterface {
+public class FilterByHour implements FilterInterface {
 
-    public FilterByLevel() {
+    public FilterByHour() {
     }
 
     public void filter(DisplayResultController displayResultController, HashMap<String,String> filterList){
@@ -17,7 +20,7 @@ public class FilterByLevel implements FilterInterface {
 //        for (int i = displayResultController.getRecordList().size()-1; i >= 0; i--) {
 //
 //            // If the record is match do not remove it
-//            if(displayResultController.getRecordList().get(i).get("rating").equals(filterList.get("rating"))){
+//            if(displayResultController.getRecordList().get(i).get("foodOffered").equals(filterList.get("food"))){
 //                continue;
 //            } else {
 //                displayResultController.getRecordList().remove(i);

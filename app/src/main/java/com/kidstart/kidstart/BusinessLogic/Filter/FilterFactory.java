@@ -1,4 +1,6 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic.Filter;
+
+import com.kidstart.kidstart.Presentation.FilterInterface;
 
 public class FilterFactory {
 

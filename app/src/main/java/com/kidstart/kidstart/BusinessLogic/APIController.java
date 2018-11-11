@@ -1,10 +1,12 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import com.kidstart.kidstart.Presentation.DisplayResultUI;
 
 import org.json.JSONArray;
 import org.json.JSONException;

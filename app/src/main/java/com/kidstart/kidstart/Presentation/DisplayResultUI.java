@@ -1,4 +1,4 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.Presentation;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,11 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 
+import com.kidstart.kidstart.BusinessLogic.DisplayResultController;
+import com.kidstart.kidstart.Presentation.MyBinder;
+import com.kidstart.kidstart.R;
+import com.kidstart.kidstart.BusinessLogic.SingletonManager;
+
 import java.util.HashMap;
 import java.util.Observer;
 import java.util.Observable;
@@ -21,7 +26,7 @@ import java.util.Observable;
  * This is the result display class.
  * @author HuanZhang
  */
-public class DisplayResultUI extends AppCompatActivity implements Observer{
+public class DisplayResultUI extends AppCompatActivity implements Observer {
 
     public static ListView displayResultListView;
     private Button nameSortButton, priceSortButton, distanceSortButton, ratingSortButton;
@@ -47,8 +52,8 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
         Intent intent = getIntent();
         //replace !=null to onActivityResult()
         if(intent.getExtras() != null) {
-            if(intent.getExtras().containsKey(MainActivity.MAIN_MESSAGE)){
-                titleString = intent.getExtras().getString(MainActivity.MAIN_MESSAGE);
+            if(intent.getExtras().containsKey(HomePageUI.MAIN_MESSAGE)){
+                titleString = intent.getExtras().getString(HomePageUI.MAIN_MESSAGE);
             }
         }
 
@@ -132,7 +137,7 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
     // Click back button
     public boolean onOptionsItemSelected(MenuItem item){
         displayResultController.resetArray();
-        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent myIntent = new Intent(getApplicationContext(), HomePageUI.class);
         startActivityForResult(myIntent, 0);
         return true;
     }

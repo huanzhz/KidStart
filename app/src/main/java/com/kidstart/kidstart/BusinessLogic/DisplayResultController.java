@@ -1,7 +1,12 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+
+import com.kidstart.kidstart.BusinessLogic.Filter.FilterFactory;
+import com.kidstart.kidstart.BusinessLogic.Sort.SortFactory;
+import com.kidstart.kidstart.Presentation.FilterInterface;
+import com.kidstart.kidstart.Presentation.SortInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,8 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic.Sort;
+
+import com.kidstart.kidstart.BusinessLogic.DisplayResultController;
+import com.kidstart.kidstart.BusinessLogic.SingletonManager;
+import com.kidstart.kidstart.Presentation.SortInterface;
 
 import java.util.Collections;
 import java.util.Comparator;

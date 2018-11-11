@@ -1,4 +1,6 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic.Sort;
+
+import com.kidstart.kidstart.Presentation.SortInterface;
 
 public class SortFactory {
     public SortInterface getSort(String sortType) {

@@ -1,14 +1,17 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic.Filter;
+
+import com.kidstart.kidstart.BusinessLogic.DisplayResultController;
+import com.kidstart.kidstart.Presentation.FilterInterface;
 
 import java.util.HashMap;
 
 /**
- * This class implement the Filter by rating method
+ * This class implement the filter by language method
  * @author HuanZhang
  */
-public class FilterByRating implements FilterInterface {
+public class FilterByLanguage implements FilterInterface {
 
-    public FilterByRating() {
+    public FilterByLanguage() {
     }
 
     public void filter(DisplayResultController displayResultController, HashMap<String,String> filterList){
@@ -17,7 +20,8 @@ public class FilterByRating implements FilterInterface {
         for (int i = displayResultController.getRecordList().size()-1; i >= 0; i--) {
 
             // If the record is match do not remove it
-            if(displayResultController.getRecordList().get(i).get("rating").equals(filterList.get("rating"))){
+            // String[] checked=["1","1","0"];
+            if(displayResultController.getRecordList().get(i).get("secondLanguagesOffered").equals(filterList.get("language"))){
                 continue;
             } else {
                 displayResultController.getRecordList().remove(i);

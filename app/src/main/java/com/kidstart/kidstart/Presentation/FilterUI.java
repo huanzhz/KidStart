@@ -1,15 +1,17 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.Presentation;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.kidstart.kidstart.BusinessLogic.DisplayResultController;
+import com.kidstart.kidstart.R;
+import com.kidstart.kidstart.BusinessLogic.SingletonManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
