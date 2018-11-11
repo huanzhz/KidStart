@@ -53,9 +53,9 @@ public class DetailedInformationUI extends AppCompatActivity {
 
     // Click back button
     public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), DisplayResultUI.class);
-        myIntent.putExtra(HomePageUI.MAIN_MESSAGE, titleString);
-        startActivityForResult(myIntent, 1);
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
         return true;
     }
 }

@@ -86,8 +86,8 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
 
                 intent.putExtra("hashMapMessage", selectedRecord);
                 intent.putExtra("Death",titleString);
-                startActivity(intent);
-                 }
+                startActivityForResult(intent, 1);
+                }
             }
         );
 
