@@ -1,5 +1,9 @@
-package com.kidstart.kidstart.BusinessLogic.Sort;
+package com.kidstart.kidstart.BusinessLogic;
 
+import com.kidstart.kidstart.BusinessLogic.Sort.SortByDistance;
+import com.kidstart.kidstart.BusinessLogic.Sort.SortByName;
+import com.kidstart.kidstart.BusinessLogic.Sort.SortByPrice;
+import com.kidstart.kidstart.BusinessLogic.Sort.SortByRating;
 import com.kidstart.kidstart.Presentation.SortInterface;
 
 public class SortFactory {

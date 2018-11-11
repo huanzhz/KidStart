@@ -78,7 +78,7 @@ public class HomePageUI extends AppCompatActivity {
         String message = editText.getText().toString();
         message = message.toUpperCase();
         intent.putExtra(MAIN_MESSAGE, message);
-        startActivity(intent);
+        startActivityForResult(intent, 0);
     }
 
     @Override

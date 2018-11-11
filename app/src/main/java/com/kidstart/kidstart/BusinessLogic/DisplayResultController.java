@@ -3,8 +3,6 @@ package com.kidstart.kidstart.BusinessLogic;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
-import com.kidstart.kidstart.BusinessLogic.Filter.FilterFactory;
-import com.kidstart.kidstart.BusinessLogic.Sort.SortFactory;
 import com.kidstart.kidstart.Presentation.FilterInterface;
 import com.kidstart.kidstart.Presentation.SortInterface;
 
@@ -81,7 +79,7 @@ public class DisplayResultController extends Observable {
 
     public void onPostExecuteAPI() {
         setChanged();
-        notifyObservers();
+        notifyObservers("new");
     }
 
     public void setNew(Context ctx, String titleString, AppCompatActivity activity) {

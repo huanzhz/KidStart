@@ -2,11 +2,13 @@ package com.kidstart.kidstart.Presentation;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -28,11 +30,12 @@ import java.util.Observable;
  */
 public class DisplayResultUI extends AppCompatActivity implements Observer {
 
-    public static ListView displayResultListView;
+    private ListView displayResultListView;
     private Button nameSortButton, priceSortButton, distanceSortButton, ratingSortButton;
     private RatingBar _ratingBar;
     private String titleString;
     private DisplayResultController displayResultController;
+    private ListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,17 +140,30 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
     // Click back button
     public boolean onOptionsItemSelected(MenuItem item){
         displayResultController.resetArray();
-        Intent myIntent = new Intent(getApplicationContext(), HomePageUI.class);
-        startActivityForResult(myIntent, 0);
+        Intent myIntent = new Intent(this, HomePageUI.class);
+        displayResultController.resetArray();
+        startActivity(myIntent);
         return true;
     }
 
     //Override method in ListResultObserver, and do something if Subject notifies
     @Override
-    public void update(Observable observable, Object o){
+    public void update(Observable observable, Object arg){
         //TODO
         if (observable instanceof DisplayResultController) {
-            updateListView();
+            if (arg == "new") {
+                newListView();
+            } else {
+                updateListView();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0) {
+            displayResultController.collateResult();
         }
     }
 
@@ -157,7 +173,11 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
     }
 
     public void updateListView(){
-        ListAdapter adapter = new SimpleAdapter(
+        ((BaseAdapter)adapter).notifyDataSetChanged();
+    }
+
+    public void newListView(){
+        adapter = new SimpleAdapter(
                 DisplayResultUI.this, displayResultController.getRecordList(),
                 R.layout.school_listing, new String[]{"centreName", "rating", "price", "review"},
                 new int[]{R.id.nameTextView, R.id.ratingBar, R.id.priceTextView, R.id.reviewTextView});
