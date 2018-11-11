@@ -16,7 +16,6 @@ import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 
 import com.kidstart.kidstart.BusinessLogic.DisplayResultController;
-import com.kidstart.kidstart.Presentation.MyBinder;
 import com.kidstart.kidstart.R;
 import com.kidstart.kidstart.BusinessLogic.SingletonManager;
 
@@ -36,11 +35,19 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
     private String titleString;
     private DisplayResultController displayResultController;
     private ListAdapter adapter;
+    private HashMap<String, Boolean> sortAscMap = new HashMap<>();
+    private String sortType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_result_ui);
+
+        //set all sorting to false
+        sortAscMap.put("name", false);
+        sortAscMap.put("price", false);
+        sortAscMap.put("distance", false);
+        sortAscMap.put("rating", false);
 
         // System naming
         //getSupportActionBar().setTitle("Hello World!");
@@ -90,7 +97,7 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
         distanceSortButton = findViewById(R.id.distanceButton);
         ratingSortButton = findViewById(R.id.ratingButton);
 
-        nameSortButton.setBackgroundColor(Color.DKGRAY);
+        nameSortButton.setBackgroundColor(Color.GRAY);
         priceSortButton.setBackgroundColor(Color.GRAY);
         distanceSortButton.setBackgroundColor(Color.GRAY);
         ratingSortButton.setBackgroundColor(Color.GRAY);
@@ -98,7 +105,10 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
         nameSortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sortListView("name");
+                sortType = "name";
+                sortListView();
+                //change boolean to opposite
+                sortAscMap.put(sortType, !sortAscMap.get(sortType));
                 nameSortButton.setBackgroundColor(Color.DKGRAY);
                 priceSortButton.setBackgroundColor(Color.GRAY);
                 distanceSortButton.setBackgroundColor(Color.GRAY);
@@ -108,7 +118,8 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
         priceSortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sortListView("price");
+                sortType = "price";
+                sortListView();
                 nameSortButton.setBackgroundColor(Color.GRAY);
                 priceSortButton.setBackgroundColor(Color.DKGRAY);
                 distanceSortButton.setBackgroundColor(Color.GRAY);
@@ -118,7 +129,8 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
         distanceSortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sortListView("distance");
+                sortType = "distance";
+                sortListView();
                 nameSortButton.setBackgroundColor(Color.GRAY);
                 priceSortButton.setBackgroundColor(Color.GRAY);
                 distanceSortButton.setBackgroundColor(Color.DKGRAY);
@@ -128,7 +140,8 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
         ratingSortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sortListView("rating");
+                sortType = "rating";
+                sortListView();
                 nameSortButton.setBackgroundColor(Color.GRAY);
                 priceSortButton.setBackgroundColor(Color.GRAY);
                 distanceSortButton.setBackgroundColor(Color.GRAY);
@@ -167,9 +180,9 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
         }
     }
 
-    public void sortListView(String sortType) {
+    public void sortListView() {
         //onClick for which sort button
-        displayResultController.sort(sortType);
+        displayResultController.sort(sortType, sortAscMap);
     }
 
     public void updateListView(){

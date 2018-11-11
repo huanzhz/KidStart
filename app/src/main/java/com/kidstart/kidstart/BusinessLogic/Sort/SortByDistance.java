@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class SortByDistance implements SortInterface {
 
-    public boolean sort(){
+    public boolean sort(Boolean asc){
         DisplayResultController displayerResultController = SingletonManager.getDisplayResultControllerInstance();
         if(displayerResultController.getRecordList().size() != 0) {
             //ArrayList< HashMap< String,String >> arrayList= recordList;

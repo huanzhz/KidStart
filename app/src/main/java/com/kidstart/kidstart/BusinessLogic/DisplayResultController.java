@@ -64,9 +64,9 @@ public class DisplayResultController extends Observable {
         notifyObservers();
     }
 
-    public void sort(String sortType) {
+    public void sort(String sortType, HashMap<String, Boolean> sortAscMap) {
         sortController = sortFactory.getSort(sortType);
-        boolean sortSuccessful = sortController.sort();
+        boolean sortSuccessful = sortController.sort(sortAscMap.get(sortType));
         if (sortSuccessful) {
             setChanged();
             notifyObservers();
