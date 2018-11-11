@@ -120,6 +120,8 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
             public void onClick(View v) {
                 sortType = "price";
                 sortListView();
+                //change boolean to opposite
+                sortAscMap.put(sortType, !sortAscMap.get(sortType));
                 nameSortButton.setBackgroundColor(Color.GRAY);
                 priceSortButton.setBackgroundColor(Color.DKGRAY);
                 distanceSortButton.setBackgroundColor(Color.GRAY);
@@ -131,6 +133,8 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
             public void onClick(View v) {
                 sortType = "distance";
                 sortListView();
+                //change boolean to opposite
+                sortAscMap.put(sortType, !sortAscMap.get(sortType));
                 nameSortButton.setBackgroundColor(Color.GRAY);
                 priceSortButton.setBackgroundColor(Color.GRAY);
                 distanceSortButton.setBackgroundColor(Color.DKGRAY);
@@ -142,6 +146,8 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
             public void onClick(View v) {
                 sortType = "rating";
                 sortListView();
+                //change boolean to opposite
+                sortAscMap.put(sortType, !sortAscMap.get(sortType));
                 nameSortButton.setBackgroundColor(Color.GRAY);
                 priceSortButton.setBackgroundColor(Color.GRAY);
                 distanceSortButton.setBackgroundColor(Color.GRAY);

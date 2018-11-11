@@ -10,21 +10,39 @@ import java.util.HashMap;
 
 public class SortByPrice implements SortInterface {
 
-    public boolean sort(Boolean asc){
+    public boolean sort(Boolean asc) {
         DisplayResultController displayerResultController = SingletonManager.getDisplayResultControllerInstance();
-        if(displayerResultController.getRecordList().size() != 0) {
-            //ArrayList< HashMap< String,String >> arrayList= recordList;
-            Collections.sort(displayerResultController.getRecordList(), new Comparator<HashMap<String, String>>() {
 
-                @Override
-                public int compare(HashMap<String, String> lhs,
-                                   HashMap<String, String> rhs) {
-                    // Do your comparison logic here and return accordingly.
-                    return (lhs.get("price")).compareTo(rhs.get("price"));
-                }
-            });
-            return true;
+        if (asc == false) {
+            if (displayerResultController.getRecordList().size() != 0) {
+                //ArrayList< HashMap< String,String >> arrayList= recordList;
+                Collections.sort(displayerResultController.getRecordList(), new Comparator<HashMap<String, String>>() {
+
+                    @Override
+                    public int compare(HashMap<String, String> lhs,
+                                       HashMap<String, String> rhs) {
+                        // Do your comparison logic here and return accordingly.
+                        return (lhs.get("price")).compareTo(rhs.get("price"));
+                    }
+                });
+                return true;
+            }
+            return false;
+        } else {
+            if (displayerResultController.getRecordList().size() != 0) {
+                //ArrayList< HashMap< String,String >> arrayList= recordList;
+                Collections.sort(displayerResultController.getRecordList(), new Comparator<HashMap<String, String>>() {
+
+                    @Override
+                    public int compare(HashMap<String, String> lhs,
+                                       HashMap<String, String> rhs) {
+                        // Do your comparison logic here and return accordingly.
+                        return (rhs.get("price")).compareTo(lhs.get("price"));
+                    }
+                });
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 }
