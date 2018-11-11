@@ -34,7 +34,7 @@
 
         <TextView
             android:id="@+id/filterRating"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Rating :"
@@ -68,7 +68,7 @@
 
         <TextView
             android:id="@+id/filterFood"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Food Preference :"
@@ -100,7 +100,7 @@
 
         <TextView
             android:id="@+id/filterLanguage"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Second languages :  "
@@ -130,7 +130,7 @@
 
         <TextView
             android:id="@+id/filterLevel"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Levels offered :  "
@@ -162,10 +162,10 @@
 
         <TextView
             android:id="@+id/filterSchoolFee"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="School Fees :"
+            android:text="School Fees (min):"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -210,7 +210,7 @@
 
         <TextView
             android:id="@+id/filterHourOfCare"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Hours of care :  "
