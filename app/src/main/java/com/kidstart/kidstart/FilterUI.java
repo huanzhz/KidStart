@@ -4,9 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -15,51 +20,78 @@ import java.util.HashMap;
  */
 public class FilterUI extends AppCompatActivity {
 
-    public static final String FILTER_MESSAGE = "com.kidstart.kidstart.FILTERMESSAGE";
-
-    CheckBox cbChinese, cbMalay, cbTamil;
-    Button submitBtn;
-    Boolean checkBoxTicked;
-
+    private Spinner ratingSpinner, foodSpinner, languageSpinner, levelSpinner, hourSpinner;
+    private ArrayAdapter<String> ratingAdapter, foodAdapter, languageAdapter, levelAdapter, hourAdapter;
+    private SeekBar schoolFeeSeekbar;
+    private TextView schoolvalueTextView;
+    private int schoolValueProgress = 100;
     private DisplayResultController displayResultController;
-//    private FilterController filterController = new FilterController();
 
     HashMap<String,String> filterList = new HashMap<String, String>();
+    private ArrayList<String> filterTypeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_interface);
-        cbChinese = (CheckBox) findViewById(R.id.checkBoxChinese);
-        cbMalay = (CheckBox) findViewById(R.id.checkBoxMalay);
-        cbTamil = (CheckBox) findViewById(R.id.checkBoxTamil);
 
-        submitBtn = (Button) findViewById(R.id.submitButton);
-        checkBoxTicked = false;
+        filterTypeList.clear();
+
+        schoolFeeSeekbar = (SeekBar) findViewById(R.id.schoolFeeSeekBar);
+        schoolvalueTextView   = (TextView) findViewById(R.id.filterSchoolValue);
+
+        schoolFeeSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                schoolValueProgress = progress;
+                schoolvalueTextView.setText("$" + schoolValueProgress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        ratingSpinner   = (Spinner) findViewById(R.id.filterRatingSpinner);
+        foodSpinner     = (Spinner) findViewById(R.id.filterFoodSpinner);
+        languageSpinner = (Spinner) findViewById(R.id.filterLanguageSpinner);
+        levelSpinner    = (Spinner) findViewById(R.id.filterLevelSpinner);
+        hourSpinner     = (Spinner) findViewById(R.id.filterHourSpinner);
+
+        ratingAdapter   = new ArrayAdapter<String>(FilterUI.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.ratings));
+        ratingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        foodAdapter     = new ArrayAdapter<String>(FilterUI.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.food));
+        foodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        languageAdapter = new ArrayAdapter<String>(FilterUI.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.language));
+        languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        levelAdapter = new ArrayAdapter<String>(FilterUI.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.level));
+        levelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        hourAdapter = new ArrayAdapter<String>(FilterUI.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.hour));
+        hourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+
+        ratingSpinner.setAdapter(ratingAdapter);
+        foodSpinner.setAdapter(foodAdapter);
+        languageSpinner.setAdapter(languageAdapter);
+        levelSpinner.setAdapter(levelAdapter);
+        hourSpinner.setAdapter(hourAdapter);
 
         // System Back button enable
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        displayResultController = singletonManager.getDisplayResultControllerInstance();
-    }
-
-    /**
-     * Compare the race to filter out the unwanted data.
-     */
-    public void filterRace(){
-        // Loop through the array to see which is not suitable for the filter
-        for (int i = displayResultController.getTempRecordList().size()-1; i >= 0; i--) {
-
-            // If the record is match do not remove it
-            // String[] checked=["1","1","0"];
-            if(displayResultController.getTempRecordList().get(i).get("Chinese").equals(filterList.get("Chinese")) &&
-                    displayResultController.getTempRecordList().get(i).get("Malay").equals(filterList.get("Malay")) &&
-                    displayResultController.getTempRecordList().get(i).get("Tamil").equals(filterList.get("Tamil")) ){
-                continue;
-            } else {
-                displayResultController.getRecordList().remove(i);
-            }
-        }
+        displayResultController = SingletonManager.getDisplayResultControllerInstance();
     }
 
     /**
@@ -70,42 +102,23 @@ public class FilterUI extends AppCompatActivity {
         // Create a copied of the original and remove them by filtering
         displayResultController.recordCopy(displayResultController.getTempRecordList(), displayResultController.getRecordList());
 
-        if(cbChinese.isChecked()) {
-            filterList.put("Chinese","1");
-            checkBoxTicked = true;
-        }else{
-            filterList.put("Chinese","0");
-        }
-        if(cbMalay.isChecked()) {
-            filterList.put("Malay","1");
-            checkBoxTicked = true;
-        }else{
-            filterList.put("Malay","0");
-        }
-        if(cbTamil.isChecked()) {
-            filterList.put("Tamil","1");
-            checkBoxTicked = true;
-        }else{
-            filterList.put("Tamil","0");
-        }
+        // Get the result of spinner
+        String ratingString = ratingSpinner.getSelectedItem().toString();
+        filterList.put("rating",ratingString);
+        //String foodString = foodSpinner.getSelectedItem().toString();
+        //filterList.put("food",foodString);
+        String languageString = languageSpinner.getSelectedItem().toString();
+        filterList.put("language",languageString);
+        //String levelString = languageSpinner.getSelectedItem().toString();
+        //filterList.put("level",levelString);
 
-        // If the checkBox for races is ticked
-        if(checkBoxTicked){
-            //filter will be managed by displayResultController
-            displayResultController.filter(filterList);
-        }
+        filterTypeList.add("language");
+        filterTypeList.add("rating");
+        //filterTypeList.add("food");
+        //filterTypeList.add("level");
+        displayResultController.filter(filterList, filterTypeList);
 
-//        Intent intent = new Intent(this, DisplayResultUI.class);
         Intent intent = new Intent();
-        if(checkBoxTicked) {
-            if(displayResultController.getRecordList().size() == 0){
-                // Create a copied of the original
-                displayResultController.recordCopy(displayResultController.getTempRecordList(), displayResultController.getRecordList());
-                intent.putExtra(FILTER_MESSAGE, true);
-            }
-        }else{
-            intent.putExtra(FILTER_MESSAGE, true);
-        }
         setResult(RESULT_OK, intent);
         finish();
     }

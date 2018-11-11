@@ -4,16 +4,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
-/**
- * This class implement the Sort method
- * @author HuanZhang
- */
-public class SortByName implements SortInterface {
+public class SortByRating implements SortInterface {
 
-    /**
-     * Sort the name of the centre in ascending order
-     * @return true if successfully sorted
-     */
     public boolean sort(){
         DisplayResultController displayerResultController = SingletonManager.getDisplayResultControllerInstance();
         if(displayerResultController.getRecordList().size() != 0) {
@@ -24,7 +16,7 @@ public class SortByName implements SortInterface {
                 public int compare(HashMap<String, String> lhs,
                                    HashMap<String, String> rhs) {
                     // Do your comparison logic here and return accordingly.
-                    return (lhs.get("centreName")).compareTo(rhs.get("centreName"));
+                    return (rhs.get("rating")).compareTo(lhs.get("rating"));
                 }
             });
             return true;

@@ -7,15 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 
  */
 
-public class singletonManager {
-    private static final singletonManager ourInstance = new singletonManager();
+public class SingletonManager {
+    private static final SingletonManager ourInstance = new SingletonManager();
     private static DisplayResultController displayResultController = null;
 
-    public static singletonManager getInstance() {
+    public static SingletonManager getInstance() {
         return ourInstance;
     }
 
-    private singletonManager() {
+    private SingletonManager() {
     }
 
     public static DisplayResultController getDisplayResultControllerInstance(Context ctx, String titleString, AppCompatActivity activity){

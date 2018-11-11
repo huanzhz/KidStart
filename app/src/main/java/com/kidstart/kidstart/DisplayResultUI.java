@@ -1,8 +1,7 @@
 package com.kidstart.kidstart;
 
 import android.content.Intent;
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,9 +10,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observer;
 import java.util.Observable;
@@ -25,8 +24,8 @@ import java.util.Observable;
 public class DisplayResultUI extends AppCompatActivity implements Observer{
 
     public static ListView displayResultListView;
-    private Button mySortButton;
-    private boolean filterBool;
+    private Button nameSortButton, priceSortButton, distanceSortButton, ratingSortButton;
+    private RatingBar _ratingBar;
     private String titleString;
     private DisplayResultController displayResultController;
 
@@ -42,8 +41,8 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
 
         // Initialise the button and variables
         displayResultListView = (ListView) findViewById(R.id.listView);
-        filterBool = false;
 
+        titleString = "";
         // Check for incoming activity
         Intent intent = getIntent();
         //replace !=null to onActivityResult()
@@ -53,19 +52,12 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
             }
         }
 
-        displayResultController = singletonManager.getDisplayResultControllerInstance(DisplayResultUI.this, titleString, DisplayResultUI.this);
+        displayResultController = SingletonManager.getDisplayResultControllerInstance(DisplayResultUI.this, titleString, DisplayResultUI.this);
+        displayResultController.addObserver(this);
 
         if(displayResultController.getRecordList().size() == 0 && displayResultController.getTempRecordList().size() == 0) {
             // Create a new object to fetch the data
             displayResultController.collateResult();
-        }else {
-            updateListView(displayResultController.getRecordList());
-            // If there is no record show a pop up
-            if(filterBool) {
-                // Popup show no result found
-                FailureDialog exampleDialog = new FailureDialog();
-                exampleDialog.show(getSupportFragmentManager(), "example dialog");
-            }
         }
 
         // Button
@@ -78,41 +70,63 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
                 Intent intent = new Intent(DisplayResultUI.this, DetailedInformationUI.class);
 
                 intent.putExtra("hashMapMessage", selectedRecord);
+                intent.putExtra("Death",titleString);
                 startActivity(intent);
                  }
             }
         );
 
-        mySortButton = findViewById(R.id.sortButton);
-        mySortButton.setOnClickListener(new View.OnClickListener() {
+        // Sort buttons initialise
+        nameSortButton = findViewById(R.id.sortButton);
+        priceSortButton = findViewById(R.id.priceButton);
+        distanceSortButton = findViewById(R.id.distanceButton);
+        ratingSortButton = findViewById(R.id.ratingButton);
+
+        nameSortButton.setBackgroundColor(Color.DKGRAY);
+        priceSortButton.setBackgroundColor(Color.GRAY);
+        distanceSortButton.setBackgroundColor(Color.GRAY);
+        ratingSortButton.setBackgroundColor(Color.GRAY);
+
+        nameSortButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(SortByName.sortData()) {
-                    updateListView(displayResultController.getRecordList());
-                    //updateListView(DisplayResultController.recordList);
-                }
+                sortListView("name");
+                nameSortButton.setBackgroundColor(Color.DKGRAY);
+                priceSortButton.setBackgroundColor(Color.GRAY);
+                distanceSortButton.setBackgroundColor(Color.GRAY);
+                ratingSortButton.setBackgroundColor(Color.GRAY);
             }
         });
-    }
-
-    /*
-    get FILTER_MESSAGE from FilterUI
-     */
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if(resultCode == RESULT_OK) {
-                filterBool = data.getBooleanExtra(FilterUI.FILTER_MESSAGE, false);
-                // Update the view
-                updateListView(displayResultController.getRecordList());
-                // If there is no record show a pop up
-                if(filterBool) {
-                    // Popup show no result found
-                    FailureDialog exampleDialog = new FailureDialog();
-                    exampleDialog.show(getSupportFragmentManager(), "example dialog");
-                }
+        priceSortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortListView("price");
+                nameSortButton.setBackgroundColor(Color.GRAY);
+                priceSortButton.setBackgroundColor(Color.DKGRAY);
+                distanceSortButton.setBackgroundColor(Color.GRAY);
+                ratingSortButton.setBackgroundColor(Color.GRAY);
             }
-        }
+        });
+        distanceSortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortListView("distance");
+                nameSortButton.setBackgroundColor(Color.GRAY);
+                priceSortButton.setBackgroundColor(Color.GRAY);
+                distanceSortButton.setBackgroundColor(Color.DKGRAY);
+                ratingSortButton.setBackgroundColor(Color.GRAY);
+            }
+        });
+        ratingSortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortListView("rating");
+                nameSortButton.setBackgroundColor(Color.GRAY);
+                priceSortButton.setBackgroundColor(Color.GRAY);
+                distanceSortButton.setBackgroundColor(Color.GRAY);
+                ratingSortButton.setBackgroundColor(Color.DKGRAY);
+            }
+        });
     }
 
     // Click back button
@@ -132,23 +146,17 @@ public class DisplayResultUI extends AppCompatActivity implements Observer{
         }
     }
 
+    public void sortListView(String sortType) {
+        //onClick for which sort button
+        displayResultController.sort(sortType);
+    }
+
     public void updateListView(){
         ListAdapter adapter = new SimpleAdapter(
                 DisplayResultUI.this, displayResultController.getRecordList(),
-                R.layout.school_listing, new String[]{"centreName", "centreAddress", "testID", "secondLanguagesOffered"},
-                new int[]{R.id.name, R.id.location, R.id.operationhour, R.id.test1});
-
-        displayResultListView.setAdapter(adapter);
-    }
-
-    public void updateListView(ArrayList arrayList){
-        // Update jason data to listview
-        // SimpleAdapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to)
-        ListAdapter adapter = new SimpleAdapter(
-                DisplayResultUI.this, arrayList,
-                R.layout.school_listing, new String[]{"centreName", "centreAddress", "testID", "secondLanguagesOffered"},
-                new int[]{R.id.name, R.id.location, R.id.operationhour, R.id.test1});
-
+                R.layout.school_listing, new String[]{"centreName", "rating", "price", "review"},
+                new int[]{R.id.nameTextView, R.id.ratingBar, R.id.priceTextView, R.id.reviewTextView});
+        ((SimpleAdapter) adapter).setViewBinder(new MyBinder());
         displayResultListView.setAdapter(adapter);
     }
 

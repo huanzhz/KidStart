@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">KidStart</string>
+    <string name="Open">OPEN</string>
+    <string name="Close">CLOSE</string>
+
+    <string-array name="ratings">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="food">
+        <item>None</item>
+        <item>Halal</item>
+    </string-array>
+
+    <string-array name="language">
+        <item>Chinese</item>
+        <item>Malay</item>
+        <item>Tamil</item>
+    </string-array>
+
+    <string-array name="level">
+        <item>PG</item>
+        <item>N1</item>
+        <item>N2</item>
+        <item>K1</item>
+        <item>K2</item>
+    </string-array>
+
+    <string-array name="hour">
+        <item>FULL</item>
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
 </resources>

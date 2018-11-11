@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +12,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Observable;
+import java.util.Random;
 
 /**
  * This class implement the getAPI method
@@ -30,6 +28,7 @@ public class APIController extends AsyncTask<Void, Void, Void> {
     private AppCompatActivity mainActivity;
     private ArrayList<HashMap<String, String>> recordList;
     private ArrayList<HashMap<String, String>> tmpRecordList;
+    private boolean searchfilter = false;
 
     public APIController(Context ctx, String titleString, AppCompatActivity activity, ArrayList<HashMap<String, String>> recordList, ArrayList<HashMap<String, String>> tmpRecordList){
         this.mContext = ctx;
@@ -66,17 +65,42 @@ public class APIController extends AsyncTask<Void, Void, Void> {
 
                 // Loopong through all records
                 for(int i = 0; i < records.length(); i ++){
+                    searchfilter = false;
                     JSONObject c = records.getJSONObject(i);
 
                     String centre_name = c.getString("centre_name");
-                    if(!centre_name.contains(titleString)){
+                    String centre_address = c.getString("centre_address");
+                    // Check the string within the Name
+                    if(centre_name.contains(titleString)){
+                        searchfilter = true;
+                    }
+                    // Check the string within the Address or postal code
+                    if(centre_address.contains(titleString) && !searchfilter){
+                        searchfilter = true;
+                    }
+                    // If the search not found then go to next iteration of the for loop
+                    if(!searchfilter){
                         continue;
                     }
-                    String centre_address = c.getString("centre_address");
                     String centre_website = c.getString("centre_website");
                     String second_languages_offered = c.getString("second_languages_offered");
                     String weekday_full_day = c.getString("weekday_full_day");
-                    String _id = c.getString("_id");
+                    String food_offered = c.getString("food_offered");
+                    String _id = c.getString("_id"); // maybe need REMOVE REMOVE REMOVE
+
+
+                    // [0, 100] + 300 => [300, 400]
+                    String _price = String.valueOf(new Random().nextInt(101) + 300);
+                    _price = "$"+_price+"   ";
+
+                    // [0, 5] => [0, 5]
+                    String _rating = String.valueOf(new Random().nextInt(6));
+
+                    // [0, 30] => [0, 30]
+                    String _review = String.valueOf(new Random().nextInt(31));
+                    _review = ""+_review+" Reviews";
+
+                    String _distance = String.valueOf(new Random().nextInt(101));
 
                     HashMap<String, String> childCareRecord = new HashMap<>();
 
@@ -84,28 +108,14 @@ public class APIController extends AsyncTask<Void, Void, Void> {
                     childCareRecord.put("centreName", centre_name);
                     childCareRecord.put("centreAddress", centre_address);
                     childCareRecord.put("centreWebsite", centre_website);
-
-                    if(second_languages_offered.contains("Chinese")){
-                        childCareRecord.put("Chinese", "1");
-                    } else {
-                        childCareRecord.put("Chinese", "0");
-                    }
-
-                    if(second_languages_offered.contains("Malay")){
-                        childCareRecord.put("Malay", "1");
-                    } else {
-                        childCareRecord.put("Malay", "0");
-                    }
-
-                    if(second_languages_offered.contains("Tamil")){
-                        childCareRecord.put("Tamil", "1");
-                    } else {
-                        childCareRecord.put("Tamil", "0");
-                    }
-
                     childCareRecord.put("secondLanguagesOffered", second_languages_offered);
                     childCareRecord.put("weekdayFullDay", weekday_full_day);
+                    childCareRecord.put("foodOffered", food_offered);
                     childCareRecord.put("testID", _id);
+                    childCareRecord.put("price", _price);
+                    childCareRecord.put("rating", _rating);
+                    childCareRecord.put("review", _review);
+                    childCareRecord.put("distance", _distance);
 
                     // Adding record to record list
                     recordList.add(childCareRecord);
@@ -129,21 +139,6 @@ public class APIController extends AsyncTask<Void, Void, Void> {
             pDialog.dismiss();
         }
 
-        /*
-        implement Observer pattern here, notify DisplayResultUI to updateListView
-        to do the following from DisplayResultUI
-         */
-        if(recordList.size() == 0){
-            // Popup show no result found
-            FailureDialog exampleDialog = new FailureDialog();
-            exampleDialog.show(mainActivity.getSupportFragmentManager(), "example dialog");
-        }else {
-            ListAdapter adapter = new SimpleAdapter(
-                    mContext, recordList,
-                    R.layout.school_listing, new String[]{"centreName", "centreAddress", "testID", "secondLanguagesOffered"},
-                    new int[]{R.id.name, R.id.location, R.id.operationhour, R.id.test1});
-
-            DisplayResultUI.displayResultListView.setAdapter(adapter);
-        }
+        SingletonManager.getDisplayResultControllerInstance().onPostExecuteAPI();
     }
 }

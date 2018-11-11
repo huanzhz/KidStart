@@ -16,7 +16,11 @@ public class DisplayResultController extends Observable {
     private ArrayList<HashMap<String, String>> recordList;
     private ArrayList<HashMap<String, String>> tempRecordList;
 
-    private FilterController filterController = new FilterController();
+    private FilterInterface filterController;
+    private FilterFactory filterFactory = new FilterFactory();
+
+    private SortInterface sortController;
+    private SortFactory sortFactory = new SortFactory();
 
     public DisplayResultController(Context ctx, String titleString, AppCompatActivity activity){
         context = ctx;
@@ -41,25 +45,46 @@ public class DisplayResultController extends Observable {
             recordList.clear();
             tempRecordList.clear();
             //notify DisplayResultUI to updateListView
+            setChanged();
             notifyObservers();
         }
     }
 
     //Message passed from FilterUI if checkBoxTicked
-    public void filter(HashMap<String,String> filterList){
-        filterController.filterRace(this, filterList);
+    public void filter(HashMap<String,String> filterList, ArrayList<String> filterTypeList){
+        //run through each filterType in the filterTypeList, create appropriate filters and filter
+        for(int i=0; i<filterTypeList.size(); i++){
+            filterController = filterFactory.getFilter(filterTypeList.get(i));
+            filterController.filter(this, filterList);
+        }
+        setChanged();
         notifyObservers();
+    }
+
+    public void sort(String sortType) {
+        sortController = sortFactory.getSort(sortType);
+        boolean sortSuccessful = sortController.sort();
+        if (sortSuccessful) {
+            setChanged();
+            notifyObservers();
+        }
     }
 
     public void collateResult(){
         new APIController(context, titleString, appActivity, recordList, tempRecordList).execute();
     };
 
+    public void onPostExecuteAPI() {
+        setChanged();
+        notifyObservers();
+    }
+
     public void setNew(Context ctx, String titleString, AppCompatActivity activity) {
         context = ctx;
         this.titleString = titleString;
         appActivity = activity;
-        resetArray();
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<HashMap<String, String>> getRecordList() {
