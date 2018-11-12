@@ -30,11 +30,9 @@
             android:name=".Presentation.FilterUI"
             android:parentActivityName=".Presentation.DisplayResultUI" />
         <activity
-            android:name=".Presentation.LoginActivity" />
+            android:name=".Presentation.LoginUI" />
         <activity
-            android:name=".Presentation.RegisterActivity" />
-        <activity
-            android:name=".Presentation.ProfileActivity" />
+            android:name=".Presentation.RegisterUI" />
 
     </application>
 

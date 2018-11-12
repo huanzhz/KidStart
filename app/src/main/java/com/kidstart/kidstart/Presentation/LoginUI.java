@@ -18,37 +18,48 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.kidstart.kidstart.R;
 
-public class RegisterActivity extends AppCompatActivity implements  View.OnClickListener {
+public class LoginUI extends AppCompatActivity implements View.OnClickListener
+{
 
-    private Button buttonRegister;
     private Button buttonLogin;
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private ProgressDialog progressDialog;
-    private FirebaseAuth firebaseAuth;
+    private Button buttonRegister;
     private TextView emailErrorText;
     private TextView passwordErrorText;
+
+    private ProgressDialog progressDialog;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        progressDialog = new ProgressDialog(this);
-        buttonRegister = (Button)findViewById(R.id.buttonRegister);
+        setContentView(R.layout.activity_login);
         buttonLogin = (Button)findViewById(R.id.buttonLogin);
+        buttonRegister = (Button)findViewById(R.id.buttonRegister);
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
+        progressDialog = new ProgressDialog(this);
+        firebaseAuth = FirebaseAuth.getInstance();
         emailErrorText = (TextView)findViewById(R.id.textView);
         passwordErrorText = (TextView)findViewById(R.id.textView1);
-        buttonRegister.setOnClickListener((View.OnClickListener) this);
-        buttonLogin.setOnClickListener((View.OnClickListener) this);
 
+
+        //if user is already logged in
+        //if(firebaseAuth.getCurrentUser()!=null){
+        //start profile activity
+        //add the activity to open from huanzhang
+        //finish();
+        //  startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+        //}
+
+        buttonRegister.setOnClickListener((View.OnClickListener)this);
+        buttonLogin.setOnClickListener((View.OnClickListener)this);
 
     }
 
-    private void registerUser(){
+
+    private void userLogin(){
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
@@ -72,38 +83,34 @@ public class RegisterActivity extends AppCompatActivity implements  View.OnClick
             passwordErrorText.setText("Please enter password");
             return;
         }
-        progressDialog.setMessage("Registering User...");
+
+        progressDialog.setMessage("Logging In, Please wait...");
         progressDialog.show();
 
-        firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                progressDialog.dismiss();
                 if(task.isSuccessful()){
-                    //user is registered successfully
-                    //we will start the profile activity here
-                    //right now lets display a toast message
-                    Toast.makeText(RegisterActivity.this,"Registered Successfully",Toast.LENGTH_SHORT).show();
+                    //start the profile activity
                     finish();
-                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    startActivity(new Intent(getApplicationContext(), HomePageUI.class));
                 }else{
-                    Toast.makeText(RegisterActivity.this,"Could not register.. Please try again",Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(), "Invalid Login Credentials",Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
     }
 
     @Override
     public void onClick(View view){
-        if(view == buttonRegister){
-            registerUser();
-            return;
-        }
-
         if(view == buttonLogin){
-            startActivity(new Intent(this,LoginActivity.class));
-            return;
+            userLogin();
+        }
+        if(view == buttonRegister){
+            finish();
+            startActivity(new Intent(this,RegisterUI.class));
         }
     }
-
 }
