@@ -66,7 +66,11 @@ public class HomePageUI extends AppCompatActivity {
                 if(id == R.id.login)
                 {
                     Toast.makeText(HomePageUI.this, "MyProfile",Toast.LENGTH_SHORT);
-                    startActivity(new Intent(getApplicationContext(),LoginUI.class));
+                    if (firebaseAuth.getCurrentUser()==null) {
+                        startActivity(new Intent(getApplicationContext(), LoginUI.class));
+                    } else {
+                        Toast.makeText(HomePageUI.this, "You are already logined!", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else if(id == R.id.displayfavorites)
                 {
@@ -126,8 +130,7 @@ public class HomePageUI extends AppCompatActivity {
             if(firebaseAuth.getCurrentUser()!=null){
                 navigationView.getMenu().findItem(R.id.login).setVisible(false);
             }
-
-            }
+        }
     }
 
     @Override
