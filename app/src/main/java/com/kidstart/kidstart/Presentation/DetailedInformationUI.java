@@ -1,4 +1,4 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.Presentation;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.kidstart.kidstart.R;
 
 import java.util.HashMap;
 
@@ -53,9 +53,9 @@ public class DetailedInformationUI extends AppCompatActivity {
 
     // Click back button
     public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), DisplayResultUI.class);
-        myIntent.putExtra(MainActivity.MAIN_MESSAGE, titleString);
-        startActivityForResult(myIntent, 1);
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
         return true;
     }
 }

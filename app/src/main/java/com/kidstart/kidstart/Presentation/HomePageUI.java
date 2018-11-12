@@ -1,4 +1,4 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.Presentation;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -12,11 +12,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.kidstart.kidstart.R;
+
 /**
  * This is the main class
  * @author HuanZhang
  */
-public class MainActivity extends AppCompatActivity {
+public class HomePageUI extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -45,23 +47,23 @@ public class MainActivity extends AppCompatActivity {
 
                 if(id == R.id.login)
                 {
-                    Toast.makeText(MainActivity.this, "MyProfile",Toast.LENGTH_SHORT);
+                    Toast.makeText(HomePageUI.this, "MyProfile",Toast.LENGTH_SHORT);
                 }
                 else if(id == R.id.displayfavorites)
                 {
-                    Toast.makeText(MainActivity.this, "Settings",Toast.LENGTH_SHORT);
+                    Toast.makeText(HomePageUI.this, "Settings",Toast.LENGTH_SHORT);
                 }
                 else if(id == R.id.changelanguage)
                 {
-                    Toast.makeText(MainActivity.this, "EditProfile",Toast.LENGTH_SHORT);
+                    Toast.makeText(HomePageUI.this, "EditProfile",Toast.LENGTH_SHORT);
                 }
                 else if(id == R.id.changepassword)
                 {
-                    Toast.makeText(MainActivity.this, "EditProfile",Toast.LENGTH_SHORT);
+                    Toast.makeText(HomePageUI.this, "EditProfile",Toast.LENGTH_SHORT);
                 }
                 else if(id == R.id.logout)
                 {
-                    Toast.makeText(MainActivity.this, "EditProfile",Toast.LENGTH_SHORT);
+                    Toast.makeText(HomePageUI.this, "EditProfile",Toast.LENGTH_SHORT);
                 }
 
                 return false;
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         String message = editText.getText().toString();
         message = message.toUpperCase();
         intent.putExtra(MAIN_MESSAGE, message);
-        startActivity(intent);
+        startActivityForResult(intent, 0);
     }
 
     @Override

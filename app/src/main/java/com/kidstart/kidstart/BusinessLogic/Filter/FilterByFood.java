@@ -1,4 +1,7 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic.Filter;
+
+import com.kidstart.kidstart.BusinessLogic.DisplayResultController;
+import com.kidstart.kidstart.Presentation.FilterInterface;
 
 import java.util.HashMap;
 

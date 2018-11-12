@@ -1,4 +1,4 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic;
 
 import android.util.Log;
 

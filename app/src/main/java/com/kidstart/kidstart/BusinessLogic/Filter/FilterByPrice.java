@@ -1,14 +1,17 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic.Filter;
+
+import com.kidstart.kidstart.BusinessLogic.DisplayResultController;
+import com.kidstart.kidstart.Presentation.FilterInterface;
 
 import java.util.HashMap;
 
 /**
- * This class implement the Filter by operating hour method
+ * This class implement the Filter by price method
  * @author HuanZhang
  */
-public class FilterByHour implements FilterInterface {
+public class FilterByPrice implements FilterInterface {
 
-    public FilterByHour() {
+    public FilterByPrice() {
     }
 
     public void filter(DisplayResultController displayResultController, HashMap<String,String> filterList){

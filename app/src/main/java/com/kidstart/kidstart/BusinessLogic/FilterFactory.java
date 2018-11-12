@@ -1,4 +1,12 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic;
+
+import com.kidstart.kidstart.BusinessLogic.Filter.FilterByFood;
+import com.kidstart.kidstart.BusinessLogic.Filter.FilterByHour;
+import com.kidstart.kidstart.BusinessLogic.Filter.FilterByLanguage;
+import com.kidstart.kidstart.BusinessLogic.Filter.FilterByLevel;
+import com.kidstart.kidstart.BusinessLogic.Filter.FilterByPrice;
+import com.kidstart.kidstart.BusinessLogic.Filter.FilterByRating;
+import com.kidstart.kidstart.Presentation.FilterInterface;
 
 public class FilterFactory {
 

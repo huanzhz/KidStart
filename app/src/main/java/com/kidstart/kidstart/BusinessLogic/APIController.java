@@ -1,4 +1,4 @@
-package com.kidstart.kidstart;
+package com.kidstart.kidstart.BusinessLogic;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,7 +19,7 @@ import java.util.Random;
  * @author HuanZhang
  */
 public class APIController extends AsyncTask<Void, Void, Void> {
-    private static String TAG = DisplayResultUI.class.getSimpleName();
+//    private static String TAG = DisplayResultUI.class.getSimpleName();
     private static ProgressDialog pDialog;
     //URL of the JSON
     private static String url = "https://data.gov.sg/api/action/datastore_search?resource_id=4fc3fd79-64f2-4027-8d5b-ce0d7c279646&limit=50";
@@ -54,7 +54,7 @@ public class APIController extends AsyncTask<Void, Void, Void> {
 
         String jsonStr = sh.makeServiceCall(url);
 
-        Log.e(TAG, "Response from url: " + jsonStr);
+        Log.e("JSON", "Response from url: " + jsonStr);
 
         if(jsonStr != null){
             try{
@@ -123,10 +123,10 @@ public class APIController extends AsyncTask<Void, Void, Void> {
                     tmpRecordList.add(childCareRecord);
                 }
             }catch (final JSONException e){
-                Log.e(TAG, "JSON parsing error: " + e.getMessage());
+                Log.e("JSON Error", "JSON parsing error: " + e.getMessage());
             }
         } else {
-            Log.e(TAG, "Couldn't get json from server.");
+            Log.e("JSON ERROR", "Couldn't get json from server.");
         }
         return null;
     }
