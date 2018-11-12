@@ -19,8 +19,12 @@ public class FilterByRating implements FilterInterface {
         // Loop through the array to see which is not suitable for the filter
         for (int i = displayResultController.getRecordList().size()-1; i >= 0; i--) {
 
+            if(filterList.get("rating").equals("NULL")){
+                continue;
+            }
             // If the record is match do not remove it
-            if(displayResultController.getRecordList().get(i).get("rating").equals(filterList.get("rating"))){
+            if(Integer.valueOf(displayResultController.getRecordList().get(i).get("rating")) >=
+                    Integer.valueOf((filterList.get("rating")))){
                 continue;
             } else {
                 displayResultController.getRecordList().remove(i);

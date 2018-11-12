@@ -29,13 +29,6 @@
         <activity
             android:name=".Presentation.FilterUI"
             android:parentActivityName=".Presentation.DisplayResultUI" />
-        <activity
-            android:name=".Presentation.LoginActivity" />
-        <activity
-            android:name=".Presentation.RegisterActivity" />
-        <activity
-            android:name=".Presentation.ProfileActivity" />
-
     </application>
 
 </manifest>
