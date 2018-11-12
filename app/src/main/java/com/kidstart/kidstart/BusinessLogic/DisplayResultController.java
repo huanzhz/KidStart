@@ -74,7 +74,7 @@ public class DisplayResultController extends Observable {
         new APIController(context, titleString, appActivity, recordList, tempRecordList).execute();
     };
 
-    private void onPostExecuteAPI() {
+    public void onPostExecuteAPI() {
         setChanged();
         notifyObservers("new");
     }

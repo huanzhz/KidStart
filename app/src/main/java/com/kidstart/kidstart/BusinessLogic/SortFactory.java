@@ -11,7 +11,7 @@ public class SortFactory {
         else if(sortType.equals("price")){
             return new SortByPrice();
         }
-        else if(sortType == "rating"){
+        else if(sortType.equals("rating")){
             return new SortByRating();
         }
         else if(sortType.equals("distance")){
