@@ -59,9 +59,12 @@ public class HomePageUI extends AppCompatActivity {
 //            button = (Button)findViewById(R.id.logout);
 //            button.setVisibility(View.INVISIBLE);
             navigationView.getMenu().findItem(R.id.login).setVisible(false);
+            navigationView.getMenu().findItem(R.id.displayUser).setVisible(true);
+            navigationView.getMenu().findItem(R.id.displayUser).setTitle(firebaseAuth.getCurrentUser().getEmail());
             navigationView.getMenu().findItem(R.id.logout).setVisible(true);
         }else{
             navigationView.getMenu().findItem(R.id.logout).setVisible(false);
+            navigationView.getMenu().findItem(R.id.displayUser).setVisible(false);
             navigationView.getMenu().findItem(R.id.login).setVisible(true);
         }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -110,13 +113,11 @@ public class HomePageUI extends AppCompatActivity {
                             // User cancelled the dialog
                         }
                     });
-
                     AlertDialog dialog = builder.create();
                     dialog.show();*/
                     firebaseAuth.signOut();
                     finish();
                     startActivity(new Intent(getApplicationContext(),HomePageUI.class));
-
                 }
 
                 return false;

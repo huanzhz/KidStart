@@ -5,7 +5,7 @@
         android:id="@+id/displayUser"
         android:icon="@drawable/ic_person_black_24dp"
         android:title="DisplayUser"
-        android:visible="false">
+        >
     </item>
     <item
         android:id="@+id/login"
