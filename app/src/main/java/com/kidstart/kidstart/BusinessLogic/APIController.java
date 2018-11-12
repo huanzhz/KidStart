@@ -90,7 +90,7 @@ public class APIController extends AsyncTask<Void, Void, Void> {
 
 
                     // [0, 100] + 300 => [300, 400]
-                    String _price = String.valueOf(new Random().nextInt(900k) + 100);
+                    String _price = String.valueOf(new Random().nextInt(900) + 100);
                     _price = "$"+_price+"   ";
 
                     // [0, 5] => [0, 5]
