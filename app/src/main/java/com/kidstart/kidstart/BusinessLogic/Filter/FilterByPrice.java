@@ -17,14 +17,18 @@ public class FilterByPrice implements FilterInterface {
     public void filter(DisplayResultController displayResultController, HashMap<String,String> filterList){
 
         // Loop through the array to see which is not suitable for the filter
-//        for (int i = displayResultController.getRecordList().size()-1; i >= 0; i--) {
-//
-//            // If the record is match do not remove it
-//            if(displayResultController.getRecordList().get(i).get("foodOffered").equals(filterList.get("food"))){
-//                continue;
-//            } else {
-//                displayResultController.getRecordList().remove(i);
-//            }
-//        }
+        for (int i = displayResultController.getRecordList().size()-1; i >= 0; i--) {
+
+            if(filterList.get("price").equals("0")) {
+                return;
+            }
+            // If the record is match do not remove it
+;            if( Integer.valueOf(displayResultController.getRecordList().get(i).get("price").replaceAll("[^0-9]", ""))
+                    >= Integer.valueOf(filterList.get("price")) ){
+                continue;
+            } else {
+                displayResultController.getRecordList().remove(i);
+            }
+        }
     }
 }

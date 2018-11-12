@@ -112,12 +112,17 @@ public class FilterUI extends AppCompatActivity {
         String languageString = languageSpinner.getSelectedItem().toString();
         filterList.put("language",languageString);
         //String levelString = languageSpinner.getSelectedItem().toString();
-        //filterList.put("level",levelString);
+        //filterList.put("level",levelString)
+
+        String priceString = String.valueOf(schoolFeeSeekbar.getProgress());
+        filterList.put("price", priceString);
 
         filterTypeList.add("language");
         filterTypeList.add("rating");
+        filterTypeList.add("price");
         //filterTypeList.add("food");
         //filterTypeList.add("level");
+
         displayResultController.filter(filterList, filterTypeList);
 
         Intent intent = new Intent();
