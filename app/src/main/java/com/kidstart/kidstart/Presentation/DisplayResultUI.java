@@ -14,6 +14,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.kidstart.kidstart.BusinessLogic.DisplayResultController;
 import com.kidstart.kidstart.R;
@@ -37,11 +38,14 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
     private ListAdapter adapter;
     private HashMap<String, Boolean> sortAscMap = new HashMap<>();
     private String sortType = "";
+    private TextView datacountTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_result_ui);
+
+        datacountTextView = findViewById(R.id.DataCountTextView);
 
         //set all sorting to false
         sortAscMap.put("name", false);
@@ -175,6 +179,8 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
             } else {
                 updateListView();
             }
+            // Update count text
+            datacountTextView.setText(displayResultController.getRecordList().size()+" Results displayed");
         }
     }
 
