@@ -61,7 +61,7 @@ public class DisplayResultController extends Observable {
             filterController.filter(this, filterList);
         }
         setChanged();
-        notifyObservers();
+        notifyObservers(false);
     }
 
     public void sort(String sortType, HashMap<String, Boolean> sortAscMap) {
@@ -69,7 +69,7 @@ public class DisplayResultController extends Observable {
         boolean sortSuccessful = sortController.sort(sortAscMap.get(sortType));
         if (sortSuccessful) {
             setChanged();
-            notifyObservers();
+            notifyObservers(false);
         }
     }
 
@@ -79,7 +79,7 @@ public class DisplayResultController extends Observable {
 
     public void onPostExecuteAPI() {
         setChanged();
-        notifyObservers("new");
+        notifyObservers(true);
     }
 
     public void setNew(Context ctx, String titleString, AppCompatActivity activity) {

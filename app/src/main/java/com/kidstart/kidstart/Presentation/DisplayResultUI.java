@@ -170,9 +170,14 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
     public void update(Observable observable, Object arg){
         //TODO
         if (observable instanceof DisplayResultController) {
-            if (arg == "new") {
-                newListView();
-            } else {
+            if(arg instanceof Boolean) {
+                if (arg == true) {
+                    newListView();
+                } else {
+                    updateListView();
+                }
+            }
+            else {
                 updateListView();
             }
         }
