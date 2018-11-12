@@ -76,6 +76,11 @@ public class LoginUI extends AppCompatActivity implements View.OnClickListener
             return;
         }
 
+        if(password.length()<6){
+            passwordErrorText.setText("Password is too short. Please enter at least 6 characters");
+            return;
+        }
+
         if(TextUtils.isEmpty(password)){
             //password is empty
             //Toast.makeText(this, "Please enter password",Toast.LENGTH_SHORT).show();

@@ -64,6 +64,10 @@ public class RegisterUI extends AppCompatActivity implements  View.OnClickListen
             emailErrorText.setText("Please enter email");
             return;
         }
+        if(password.length()<6){
+            passwordErrorText.setText("Password is too short. Please enter at least 6 characters");
+            return;
+        }
 
         if(TextUtils.isEmpty(password)){
             //password is empty
