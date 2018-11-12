@@ -47,6 +47,7 @@ public class DetailedInformationUI extends AppCompatActivity {
         infoHourTextView.setText("Hour of care: "+hashMap.get("weekday_full_day"));
         infoReviewTextView = findViewById(R.id.infoReview);
         infoReviewTextView.setText(hashMap.get("review"));
+        infoRatingBar.setEnabled(false);
 
         titleString = intent.getExtras().getString("Death");
     }

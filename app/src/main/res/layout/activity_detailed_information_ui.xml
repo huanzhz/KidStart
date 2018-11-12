@@ -42,37 +42,48 @@
 
     <TextView
         android:id="@+id/infoName"
-        android:layout_width="wrap_content"
+        android:layout_width="306dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="TextView"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/heartimageView"
         app:layout_constraintTop_toBottomOf="@+id/emailButton" />
 
     <TextView
         android:id="@+id/infoAddress"
-        android:layout_width="wrap_content"
+        android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="TextView"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoRatingBar" />
 
     <TextView
         android:id="@+id/infoPrice"
-        android:layout_width="wrap_content"
+        android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
@@ -87,52 +98,72 @@
 
     <TextView
         android:id="@+id/infoLevelOffer"
-        android:layout_width="wrap_content"
+        android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoPrice" />
 
     <TextView
         android:id="@+id/infoLanguage"
-        android:layout_width="wrap_content"
+        android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoLevelOffer" />
 
     <TextView
         android:id="@+id/infoFood"
-        android:layout_width="wrap_content"
+        android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoLanguage" />
 
     <TextView
         android:id="@+id/infoHour"
-        android:layout_width="wrap_content"
+        android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
         android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoFood" />
 
     <TextView
         android:id="@+id/infoReview"
-        android:layout_width="wrap_content"
+        android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoHour" />
 
@@ -140,9 +171,10 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
         android:text="Lauren : * * * * *\nEvery school is good school"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/infoReview" />
 
