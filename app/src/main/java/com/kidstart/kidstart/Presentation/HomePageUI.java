@@ -1,5 +1,8 @@
 package com.kidstart.kidstart.Presentation;
 
+import android.app.AlertDialog;
+import android.app.Presentation;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.kidstart.kidstart.R;
 
 /**
@@ -22,8 +26,9 @@ public class HomePageUI extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-
+    private FirebaseAuth firebaseAuth;
     public static final String MAIN_MESSAGE = "com.kidstart.kidstart.MAINMESSAGE";
+    private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +37,7 @@ public class HomePageUI extends AppCompatActivity {
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.Open, R.string.Close);
         actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
-
+        firebaseAuth = FirebaseAuth.getInstance();
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
@@ -48,6 +53,7 @@ public class HomePageUI extends AppCompatActivity {
                 if(id == R.id.login)
                 {
                     Toast.makeText(HomePageUI.this, "MyProfile",Toast.LENGTH_SHORT);
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                 }
                 else if(id == R.id.displayfavorites)
                 {
@@ -63,7 +69,26 @@ public class HomePageUI extends AppCompatActivity {
                 }
                 else if(id == R.id.logout)
                 {
-                    Toast.makeText(HomePageUI.this, "EditProfile",Toast.LENGTH_SHORT);
+                    builder = new AlertDialog.Builder(getApplicationContext());
+                    builder.setTitle("Logout");
+                    builder.setMessage("You will be returned to the main page");
+
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK button
+                            firebaseAuth.signOut();
+                            finish();
+                            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
 
                 return false;
