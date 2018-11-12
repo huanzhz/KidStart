@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "305019957001",
-    "firebase_url": "https://kidstartfinal.firebaseio.com",
-    "project_id": "kidstartfinal",
-    "storage_bucket": "kidstartfinal.appspot.com"
+    "project_number": "957393263913",
+    "firebase_url": "https://kidstart-65bbe.firebaseio.com",
+    "project_id": "kidstart-65bbe",
+    "storage_bucket": "kidstart-65bbe.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:305019957001:android:22ab49c17eba8076",
+        "mobilesdk_app_id": "1:957393263913:android:22ab49c17eba8076",
         "android_client_info": {
           "package_name": "com.kidstart.kidstart"
         }
       },
       "oauth_client": [
         {
-          "client_id": "305019957001-06mfctauo0gnsakp2vqd338po2j06h89.apps.googleusercontent.com",
+          "client_id": "957393263913-29iie433fe1hcu8kcv6i8v4qalhmoch8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDhzOy51uUk0Vu1s_HaWPVL_TPXlpkBGjI"
+          "current_key": "AIzaSyDB0qEpd4OGbnpGIE3fG3MMrt59ZeaTYpY"
         }
       ],
       "services": {
