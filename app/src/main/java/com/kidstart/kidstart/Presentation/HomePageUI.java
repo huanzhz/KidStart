@@ -45,19 +45,25 @@ public class HomePageUI extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-//        if(firebaseAuth.getCurrentUser()!=null){
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navigationView = (NavigationView)findViewById(R.id.nav_view);
+
+        if(firebaseAuth.getCurrentUser()!=null){
 //            //start profile activity
 //            //add the activity to open from huanzhang
 //            //finish();
 //            //  startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
 //            button = (Button)findViewById(R.id.logout);
 //            button.setVisibility(View.INVISIBLE);
-//        }
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        navigationView = (NavigationView)findViewById(R.id.nav_view);
-
+            navigationView.getMenu().findItem(R.id.login).setVisible(false);
+            navigationView.getMenu().findItem(R.id.logout).setVisible(true);
+        }else{
+            navigationView.getMenu().findItem(R.id.logout).setVisible(false);
+            navigationView.getMenu().findItem(R.id.login).setVisible(true);
+        }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -67,6 +73,7 @@ public class HomePageUI extends AppCompatActivity {
                 {
                     Toast.makeText(HomePageUI.this, "MyProfile",Toast.LENGTH_SHORT);
                     if (firebaseAuth.getCurrentUser()==null) {
+//                        navigationView.getMenu().findItem(R.id.login).setVisible(false);
                         startActivity(new Intent(getApplicationContext(), LoginUI.class));
                     } else {
                         Toast.makeText(HomePageUI.this, "You are already logined!", Toast.LENGTH_SHORT).show();
@@ -86,7 +93,7 @@ public class HomePageUI extends AppCompatActivity {
                 }
                 else if(id == R.id.logout)
                 {
-                    builder = new AlertDialog.Builder(getApplicationContext());
+                    /*builder = new AlertDialog.Builder(getApplicationContext());
                     builder.setTitle("Logout");
                     builder.setMessage("You will be returned to the main page");
 
@@ -105,7 +112,11 @@ public class HomePageUI extends AppCompatActivity {
                     });
 
                     AlertDialog dialog = builder.create();
-                    dialog.show();
+                    dialog.show();*/
+                    firebaseAuth.signOut();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(),HomePageUI.class));
+
                 }
 
                 return false;
@@ -123,15 +134,16 @@ public class HomePageUI extends AppCompatActivity {
         startActivityForResult(intent, 0);
     }
 
-    @Override
+   /* @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 3) {
             if(firebaseAuth.getCurrentUser()!=null){
+                Toast.makeText(this,"login set visibility to false",Toast.LENGTH_SHORT).show();
                 navigationView.getMenu().findItem(R.id.login).setVisible(false);
             }
         }
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

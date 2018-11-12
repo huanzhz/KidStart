@@ -93,6 +93,7 @@ public class LoginUI extends AppCompatActivity implements View.OnClickListener
                 progressDialog.dismiss();
                 if(task.isSuccessful()){
                     //start the profile activity
+
                     Intent intent = new Intent(getApplicationContext(), HomePageUI.class);
                     startActivityForResult(intent, 3);
                     finish();
