@@ -93,8 +93,9 @@ public class LoginUI extends AppCompatActivity implements View.OnClickListener
                 progressDialog.dismiss();
                 if(task.isSuccessful()){
                     //start the profile activity
+                    Intent intent = new Intent(getApplicationContext(), HomePageUI.class);
+                    startActivityForResult(intent, 3);
                     finish();
-                    startActivity(new Intent(getApplicationContext(), HomePageUI.class));
                 }else{
                     Toast.makeText(getApplicationContext(), "Invalid Login Credentials",Toast.LENGTH_SHORT).show();
                 }

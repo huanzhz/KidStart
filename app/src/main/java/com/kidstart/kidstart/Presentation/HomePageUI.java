@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -30,7 +31,7 @@ public class HomePageUI extends AppCompatActivity {
     public static final String MAIN_MESSAGE = "com.kidstart.kidstart.MAINMESSAGE";
     private AlertDialog.Builder builder;
     private Button button;
-
+    private NavigationView navigationView;
 
 
     @Override
@@ -44,18 +45,18 @@ public class HomePageUI extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-        if(firebaseAuth.getCurrentUser()!=null){
-            //start profile activity
-            //add the activity to open from huanzhang
-            //finish();
-            //  startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-            button = (Button)findViewById(R.id.logout);
-            button.setVisibility(View.INVISIBLE);
-        }
+//        if(firebaseAuth.getCurrentUser()!=null){
+//            //start profile activity
+//            //add the activity to open from huanzhang
+//            //finish();
+//            //  startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+//            button = (Button)findViewById(R.id.logout);
+//            button.setVisibility(View.INVISIBLE);
+//        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final NavigationView navigationView = (NavigationView)findViewById(R.id.nav_view);
+        navigationView = (NavigationView)findViewById(R.id.nav_view);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -116,6 +117,17 @@ public class HomePageUI extends AppCompatActivity {
         message = message.toUpperCase();
         intent.putExtra(MAIN_MESSAGE, message);
         startActivityForResult(intent, 0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 3) {
+            if(firebaseAuth.getCurrentUser()!=null){
+                navigationView.getMenu().findItem(R.id.login).setVisible(false);
+            }
+
+            }
     }
 
     @Override
