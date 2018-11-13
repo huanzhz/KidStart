@@ -14,10 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.kidstart.kidstart.R;
+
+import org.w3c.dom.Text;
 
 /**
  * This is the main class
@@ -32,6 +35,7 @@ public class HomePageUI extends AppCompatActivity {
     private AlertDialog.Builder builder;
     private Button button;
     private NavigationView navigationView;
+    private TextView loggedintext;
 
 
     @Override
@@ -44,8 +48,7 @@ public class HomePageUI extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-
-
+        loggedintext = (TextView)findViewById(R.id.loggedintextfield);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -59,15 +62,22 @@ public class HomePageUI extends AppCompatActivity {
 //            button = (Button)findViewById(R.id.logout);
 //            button.setVisibility(View.INVISIBLE);
             navigationView.getMenu().findItem(R.id.login).setVisible(false);
+            loggedintext.setVisibility(View.VISIBLE);
+            loggedintext.setText("Logged in as: "+firebaseAuth.getCurrentUser().getEmail());
             navigationView.getMenu().findItem(R.id.displayUser).setVisible(true);
             navigationView.getMenu().findItem(R.id.changepassword).setVisible(true);
             navigationView.getMenu().findItem(R.id.displayUser).setTitle(firebaseAuth.getCurrentUser().getEmail());
             navigationView.getMenu().findItem(R.id.logout).setVisible(true);
+            navigationView.getMenu().findItem(R.id.changelanguage).setVisible(false);
+            navigationView.getMenu().findItem(R.id.displayfavorites).setVisible(true);
         }else{
+            loggedintext.setVisibility(View.INVISIBLE);
             navigationView.getMenu().findItem(R.id.logout).setVisible(false);
             navigationView.getMenu().findItem(R.id.displayUser).setVisible(false);
             navigationView.getMenu().findItem(R.id.login).setVisible(true);
             navigationView.getMenu().findItem(R.id.changepassword).setVisible(false);
+            navigationView.getMenu().findItem(R.id.changelanguage).setVisible(false);
+            navigationView.getMenu().findItem(R.id.displayfavorites).setVisible(false);
         }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

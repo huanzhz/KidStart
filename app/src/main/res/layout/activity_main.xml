@@ -16,7 +16,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Presentation.HomePageUI">
-
+        <TextView
+            android:id="@+id/loggedintextfield"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="0dp"
+            android:text="" />
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="309dp"
@@ -90,6 +99,8 @@
                 app:srcCompat="@drawable/thesekids" />
 
         </LinearLayout>
+
+
 
     </RelativeLayout>
 
