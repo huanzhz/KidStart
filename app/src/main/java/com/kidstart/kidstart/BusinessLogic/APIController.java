@@ -22,7 +22,7 @@ public class APIController extends AsyncTask<Void, Void, Void> {
 //    private static String TAG = DisplayResultUI.class.getSimpleName();
     private static ProgressDialog pDialog;
     //URL of the JSON
-    private static String url = "https://data.gov.sg/api/action/datastore_search?resource_id=4fc3fd79-64f2-4027-8d5b-ce0d7c279646&limit=50";
+    private static String url = "https://data.gov.sg/api/action/datastore_search?resource_id=4fc3fd79-64f2-4027-8d5b-ce0d7c279646&limit=2000";
     private Context mContext;
     private String titleString;
     private AppCompatActivity mainActivity;
