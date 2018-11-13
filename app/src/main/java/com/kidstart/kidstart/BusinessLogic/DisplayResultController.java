@@ -19,10 +19,7 @@ public class DisplayResultController extends Observable {
     private ArrayList<HashMap<String, String>> recordList;
     private ArrayList<HashMap<String, String>> tempRecordList;
 
-    private FilterInterface filterController;
     private FilterFactory filterFactory = new FilterFactory();
-
-    private SortInterface sortController;
     private SortFactory sortFactory = new SortFactory();
 
     public DisplayResultController(Context ctx, String titleString, AppCompatActivity activity){
@@ -57,7 +54,7 @@ public class DisplayResultController extends Observable {
     public void filter(HashMap<String,String> filterList, ArrayList<String> filterTypeList){
         //run through each filterType in the filterTypeList, create appropriate filters and filter
         for(int i=0; i<filterTypeList.size(); i++){
-            filterController = filterFactory.getFilter(filterTypeList.get(i));
+            FilterInterface filterController = filterFactory.getFilter(filterTypeList.get(i));
             filterController.filter(this, filterList);
         }
         setChanged();
@@ -65,7 +62,7 @@ public class DisplayResultController extends Observable {
     }
 
     public void sort(String sortType, HashMap<String, Boolean> sortAscMap) {
-        sortController = sortFactory.getSort(sortType);
+        SortInterface sortController = sortFactory.getSort(sortType);
         boolean sortSuccessful = sortController.sort(sortAscMap.get(sortType));
         if (sortSuccessful) {
             setChanged();

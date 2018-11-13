@@ -1,32 +1,26 @@
 package com.kidstart.kidstart.BusinessLogic;
 
-import com.kidstart.kidstart.BusinessLogic.Filter.FilterByFood;
-import com.kidstart.kidstart.BusinessLogic.Filter.FilterByHour;
-import com.kidstart.kidstart.BusinessLogic.Filter.FilterByLanguage;
-import com.kidstart.kidstart.BusinessLogic.Filter.FilterByLevel;
-import com.kidstart.kidstart.BusinessLogic.Filter.FilterByPrice;
-import com.kidstart.kidstart.BusinessLogic.Filter.FilterByRating;
+import com.kidstart.kidstart.BusinessLogic.Filter.*;
 import com.kidstart.kidstart.Presentation.FilterInterface;
 
 public class FilterFactory {
-
     public FilterInterface getFilter(String filterType){
-        if(filterType == "language"){
+        if(filterType.equals("language")){
             return new FilterByLanguage();
         }
-        else if(filterType == "rating"){
+        else if(filterType.equals("rating")){
             return new FilterByRating();
         }
-        else if(filterType == "food"){
+        else if(filterType.equals("food")){
             return new FilterByFood();
         }
-        else if(filterType == "level"){
+        else if(filterType.equals("level")){
             return new FilterByLevel();
         }
-        else if(filterType == "hour"){
+        else if(filterType.equals("hour")){
             return new FilterByHour();
         }
-        else if(filterType == "price"){
+        else if(filterType.equals("price")){
             return new FilterByPrice();
         }
         return null;

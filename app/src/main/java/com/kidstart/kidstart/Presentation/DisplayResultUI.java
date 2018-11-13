@@ -1,5 +1,6 @@
 package com.kidstart.kidstart.Presentation;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
@@ -170,6 +171,7 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
     }
 
     //Override method in ListResultObserver, and do something if Subject notifies
+    @SuppressLint("SetTextI18n")
     @Override
     public void update(Observable observable, Object arg){
         //TODO
