@@ -55,12 +55,6 @@ public class HomePageUI extends AppCompatActivity {
         navigationView = (NavigationView)findViewById(R.id.nav_view);
 
         if(firebaseAuth.getCurrentUser()!=null){
-//            //start profile activity
-//            //add the activity to open from huanzhang
-//            //finish();
-//            //  startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-//            button = (Button)findViewById(R.id.logout);
-//            button.setVisibility(View.INVISIBLE);
             navigationView.getMenu().findItem(R.id.login).setVisible(false);
             loggedintext.setVisibility(View.VISIBLE);
             loggedintext.setText("Logged in as: "+firebaseAuth.getCurrentUser().getEmail());
