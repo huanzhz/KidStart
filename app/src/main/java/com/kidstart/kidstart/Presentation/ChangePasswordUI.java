@@ -74,7 +74,7 @@ public class ChangePasswordUI extends AppCompatActivity implements View.OnClickL
                 return;
             }
 
-/*            FirebaseUser user = firebaseAuth.getCurrentUser();
+            FirebaseUser user = firebaseAuth.getCurrentUser();
             AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(),currentpassword);
 
             user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -109,7 +109,7 @@ public class ChangePasswordUI extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(getApplicationContext(), "Unable to change password, Please try again!",Toast.LENGTH_SHORT).show();
                     }
                 }
-            });*/
+            });
         }
     }
 }
