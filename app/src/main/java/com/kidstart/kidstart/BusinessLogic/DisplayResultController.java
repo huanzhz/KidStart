@@ -79,6 +79,14 @@ public class DisplayResultController extends Observable {
         notifyObservers("new");
     }
 
+    public void setNew(Context ctx, String titleString, AppCompatActivity activity) {
+        context = ctx;
+        this.titleString = titleString;
+        appActivity = activity;
+        setChanged();
+        notifyObservers();
+    }
+
     public ArrayList<HashMap<String, String>> getRecordList() {
         return recordList;
     }

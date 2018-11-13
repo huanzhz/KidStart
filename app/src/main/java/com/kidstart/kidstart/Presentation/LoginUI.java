@@ -3,18 +3,14 @@ package com.kidstart.kidstart.Presentation;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.kidstart.kidstart.R;
 
@@ -29,7 +25,8 @@ public class LoginUI extends AppCompatActivity implements View.OnClickListener
     private TextView passwordErrorText;
 
     private ProgressDialog progressDialog;
-    private FirebaseAuth firebaseAuth;
+
+    private LoginController loginController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +37,6 @@ public class LoginUI extends AppCompatActivity implements View.OnClickListener
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
         progressDialog = new ProgressDialog(this);
-        firebaseAuth = FirebaseAuth.getInstance();
         emailErrorText = (TextView)findViewById(R.id.textView);
         passwordErrorText = (TextView)findViewById(R.id.textView1);
 
@@ -55,6 +51,8 @@ public class LoginUI extends AppCompatActivity implements View.OnClickListener
 
         buttonRegister.setOnClickListener((View.OnClickListener)this);
         buttonLogin.setOnClickListener((View.OnClickListener)this);
+
+        loginController = new LoginController(this);
 
     }
 
@@ -87,22 +85,19 @@ public class LoginUI extends AppCompatActivity implements View.OnClickListener
         progressDialog.setMessage("Logging In, Please wait...");
         progressDialog.show();
 
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                progressDialog.dismiss();
-                if(task.isSuccessful()){
-                    //start the profile activity
+        Boolean success = loginController.userLogin(email,password);
 
-                    Intent intent = new Intent(getApplicationContext(), HomePageUI.class);
-                    startActivityForResult(intent, 3);
-                    finish();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Invalid Login Credentials",Toast.LENGTH_SHORT).show();
-                }
-            }
+        if(!success){
+            emailErrorText.setText("Invalid Login Credentials! Please Try Again!");
+            return;
+        } else {
+            Intent intent = new Intent(getApplicationContext(), HomePageUI.class);
+            startActivityForResult(intent, 3);
+            finish();
+        }
 
-        });
+
+        progressDialog.dismiss();
     }
 
     @Override
