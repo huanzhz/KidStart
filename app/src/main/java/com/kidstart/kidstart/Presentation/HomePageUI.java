@@ -60,12 +60,14 @@ public class HomePageUI extends AppCompatActivity {
 //            button.setVisibility(View.INVISIBLE);
             navigationView.getMenu().findItem(R.id.login).setVisible(false);
             navigationView.getMenu().findItem(R.id.displayUser).setVisible(true);
+            navigationView.getMenu().findItem(R.id.changepassword).setVisible(true);
             navigationView.getMenu().findItem(R.id.displayUser).setTitle(firebaseAuth.getCurrentUser().getEmail());
             navigationView.getMenu().findItem(R.id.logout).setVisible(true);
         }else{
             navigationView.getMenu().findItem(R.id.logout).setVisible(false);
             navigationView.getMenu().findItem(R.id.displayUser).setVisible(false);
             navigationView.getMenu().findItem(R.id.login).setVisible(true);
+            navigationView.getMenu().findItem(R.id.changepassword).setVisible(false);
         }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -93,6 +95,7 @@ public class HomePageUI extends AppCompatActivity {
                 else if(id == R.id.changepassword)
                 {
                     Toast.makeText(HomePageUI.this, "EditProfile",Toast.LENGTH_SHORT);
+                    startActivity(new Intent(getApplicationContext(), ChangePasswordUI.class));
                 }
                 else if(id == R.id.logout)
                 {

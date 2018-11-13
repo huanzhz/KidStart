@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Presentation.HomePageUI"
+        <activity
+            android:name=".Presentation.HomePageUI"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,11 +30,9 @@
         <activity
             android:name=".Presentation.FilterUI"
             android:parentActivityName=".Presentation.DisplayResultUI" />
-        <activity
-            android:name=".Presentation.LoginUI" />
-        <activity
-            android:name=".Presentation.RegisterUI" />
-
+        <activity android:name=".Presentation.LoginUI" />
+        <activity android:name=".Presentation.RegisterUI" />
+        <activity android:name=".Presentation.ChangePasswordUI"></activity>
     </application>
 
 </manifest>
