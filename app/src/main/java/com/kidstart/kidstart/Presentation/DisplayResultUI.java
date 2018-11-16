@@ -26,7 +26,7 @@ import java.util.Observer;
 import java.util.Observable;
 
 /**
- * This is the result display class.
+ * This class display the result in a list view format
  * @author HuanZhang
  */
 public class DisplayResultUI extends AppCompatActivity implements Observer {
@@ -41,6 +41,10 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
     private String sortType = "";
     private TextView datacountTextView;
 
+    /**
+     * Similar to constructor
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,7 +165,11 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
         });
     }
 
-    // Click back button
+    /**
+     * Trigger when back button is pressed
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected(MenuItem item){
         displayResultController.resetArray();
         Intent myIntent = new Intent(this, HomePageUI.class);
@@ -170,7 +178,11 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
         return true;
     }
 
-    //Override method in ListResultObserver, and do something if Subject notifies
+    /**
+     * Override method in ListResultObserver, and do something if Subject notifies
+     * @param observable
+     * @param arg
+     */
     @SuppressLint("SetTextI18n")
     @Override
     public void update(Observable observable, Object arg){
@@ -186,6 +198,12 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * When there is a notify from result page
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -194,15 +212,24 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Call the sort method
+     */
     public void sortListView() {
         //onClick for which sort button
         displayResultController.sort(sortType, sortAscMap);
     }
 
+    /**
+     * updateListView
+     */
     public void updateListView(){
         ((BaseAdapter)adapter).notifyDataSetChanged();
     }
 
+    /**
+     * Create the variable for the list node
+     */
     public void newListView(){
         adapter = new SimpleAdapter(
                 DisplayResultUI.this, displayResultController.getRecordList(),
@@ -212,6 +239,10 @@ public class DisplayResultUI extends AppCompatActivity implements Observer {
         displayResultListView.setAdapter(adapter);
     }
 
+    /**
+     * Go to filterUI page
+     * @param view
+     */
     public void goToFilterView(View view){
         if(displayResultController.getTempRecordList().size() != 0) {
             Intent intent = new Intent(this, FilterUI.class);

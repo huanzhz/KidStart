@@ -8,8 +8,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
+/**
+ * This class implement the Sort by distance
+ * @author HuanZhang
+ */
 public class SortByDistance implements SortInterface {
 
+    /**
+     * Sort by distance
+     * @param asc   sorting in ascending or descending order
+     * @return  true if sort successful
+     */
     public boolean sort(Boolean asc){
         DisplayResultController displayerResultController = SingletonManager.getDisplayResultControllerInstance();
 

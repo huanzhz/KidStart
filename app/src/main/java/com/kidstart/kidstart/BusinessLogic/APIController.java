@@ -30,6 +30,14 @@ public class APIController extends AsyncTask<Void, Void, Void> {
     private ArrayList<HashMap<String, String>> tmpRecordList;
     private boolean searchfilter = false;
 
+    /**
+     * Constructor
+     * @param ctx   Context for displaying in post execution
+     * @param titleString   The message for search filter
+     * @param activity  The activity
+     * @param recordList    The record in displayresultcontroller class
+     * @param tmpRecordList The temp record in displayresultcontroller class
+     */
     public APIController(Context ctx, String titleString, AppCompatActivity activity, ArrayList<HashMap<String, String>> recordList, ArrayList<HashMap<String, String>> tmpRecordList){
         this.mContext = ctx;
         this.titleString = titleString;
@@ -38,6 +46,9 @@ public class APIController extends AsyncTask<Void, Void, Void> {
         this.tmpRecordList = tmpRecordList;
     }
 
+    /**
+     * Display the loading screen to notify user that it is getting data from the server side.
+     */
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -48,6 +59,11 @@ public class APIController extends AsyncTask<Void, Void, Void> {
         pDialog.show();
     }
 
+    /**
+     * Run in background to fetch the data from the server.
+     * @param voids
+     * @return
+     */
     @Override
     protected Void doInBackground(Void... voids) {
         HttpHandler sh = new HttpHandler();
@@ -131,6 +147,10 @@ public class APIController extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
+    /**
+     * Display all the data in a list view.
+     * @param aVoid
+     */
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);

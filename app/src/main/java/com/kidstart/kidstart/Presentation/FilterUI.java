@@ -32,6 +32,10 @@ public class FilterUI extends AppCompatActivity {
     HashMap<String,String> filterList = new HashMap<String, String>();
     private ArrayList<String> filterTypeList = new ArrayList<>();
 
+    /**
+     * Similar to constructor
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

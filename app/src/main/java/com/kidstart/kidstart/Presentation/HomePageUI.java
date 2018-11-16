@@ -23,7 +23,7 @@ import com.kidstart.kidstart.R;
 import org.w3c.dom.Text;
 
 /**
- * This is the main class
+ * This is the main starting class
  * @author HuanZhang
  */
 public class HomePageUI extends AppCompatActivity {
@@ -38,6 +38,10 @@ public class HomePageUI extends AppCompatActivity {
     private TextView loggedintext;
 
 
+    /**
+     * Similar to constructor
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +136,10 @@ public class HomePageUI extends AppCompatActivity {
         });
     }
 
+    /**
+     * Go to display result UI page
+     * @param view
+     */
     public void displayResultView(View view){
 
         Intent intent = new Intent(this, DisplayResultUI.class);
@@ -153,6 +161,11 @@ public class HomePageUI extends AppCompatActivity {
         }
     }*/
 
+    /**
+     * Trigger when menuItem is pressed
+     * @param item menuItem
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);

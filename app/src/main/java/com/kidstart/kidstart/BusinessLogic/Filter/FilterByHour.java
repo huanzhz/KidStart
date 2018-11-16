@@ -11,9 +11,17 @@ import java.util.HashMap;
  */
 public class FilterByHour implements FilterInterface {
 
+    /**
+     * Constructor
+     */
     public FilterByHour() {
     }
 
+    /**
+     * Filter function call by filterFactory class
+     * @param displayResultController   Class that contain all the information of record
+     * @param filterList    The list of information to filter
+     */
     public void filter(DisplayResultController displayResultController, HashMap<String,String> filterList){
 
         // Loop through the array to see which is not suitable for the filter

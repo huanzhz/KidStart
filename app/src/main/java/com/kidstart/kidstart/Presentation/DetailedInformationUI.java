@@ -11,6 +11,10 @@ import com.kidstart.kidstart.R;
 
 import java.util.HashMap;
 
+/**
+ * This class display fully detail information of a single record
+ * @author HuanZhang
+ */
 public class DetailedInformationUI extends AppCompatActivity {
 
     private String titleString;
@@ -18,6 +22,10 @@ public class DetailedInformationUI extends AppCompatActivity {
                         infoLanguageTextView, infoFoodTextView, infoHourTextView, infoReviewTextView;
     private RatingBar infoRatingBar;
 
+    /**
+     * Similar to constructor
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +60,11 @@ public class DetailedInformationUI extends AppCompatActivity {
         titleString = intent.getExtras().getString("Death");
     }
 
-    // Click back button
+    /**
+     * Trigger when back button is pressed
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected(MenuItem item){
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
