@@ -18,6 +18,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.kidstart.kidstart.R;
 
+/**
+ * This class will display the login interface
+ * @author JoonWoon
+ */
+
 public class LoginUI extends AppCompatActivity implements View.OnClickListener
 {
 
@@ -31,6 +36,11 @@ public class LoginUI extends AppCompatActivity implements View.OnClickListener
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
 
+
+    /**
+     * Similar to constructor
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +68,10 @@ public class LoginUI extends AppCompatActivity implements View.OnClickListener
 
     }
 
-
+    /**
+     * Validate and sign in with email and password
+     * @param
+     */
     private void userLogin(){
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -110,6 +123,10 @@ public class LoginUI extends AppCompatActivity implements View.OnClickListener
         });
     }
 
+    /**
+     * Triggered when buttonLogin or buttonRegister is pressed
+     * @param view
+     */
     @Override
     public void onClick(View view){
         if(view == buttonLogin){

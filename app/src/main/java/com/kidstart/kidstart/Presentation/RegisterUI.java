@@ -18,6 +18,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.kidstart.kidstart.R;
 
+/**
+ * This class will display the register interface
+ * @author JoonWoon
+ */
+
 public class RegisterUI extends AppCompatActivity implements  View.OnClickListener {
 
     private Button buttonRegister;
@@ -29,6 +34,10 @@ public class RegisterUI extends AppCompatActivity implements  View.OnClickListen
     private TextView emailErrorText;
     private TextView passwordErrorText;
 
+    /**
+     * Similar to constructor
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +57,10 @@ public class RegisterUI extends AppCompatActivity implements  View.OnClickListen
 
     }
 
+    /**
+     * Validate and register user using email and password
+     * @param
+     */
     private void registerUser(){
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -97,6 +110,10 @@ public class RegisterUI extends AppCompatActivity implements  View.OnClickListen
         });
     }
 
+    /**
+     * Triggered when buttonLogin or buttonRegister is pressed
+     * @param view
+     */
     @Override
     public void onClick(View view){
         if(view == buttonRegister){

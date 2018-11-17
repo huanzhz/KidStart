@@ -23,6 +23,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.kidstart.kidstart.R;
 
 import org.w3c.dom.Text;
+/**
+ * This class will display the change password interface
+ * @author JoonWoon
+ */
+
 
 public class ChangePasswordUI extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,6 +55,10 @@ public class ChangePasswordUI extends AppCompatActivity implements View.OnClickL
         button.setOnClickListener((View.OnClickListener)this);
     }
 
+    /**
+     * reauthenticates user, validates and changes password
+     * @param view
+     */
     @Override
     public void onClick(View v) {
         if(v == button){
