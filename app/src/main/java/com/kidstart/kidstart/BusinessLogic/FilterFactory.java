@@ -10,7 +10,8 @@ import com.kidstart.kidstart.Presentation.FilterInterface;
 public class FilterFactory {
 
     /**
-     * Choose which filter to use
+     * Select which filter to instantiate and return
+     * base on the filterType given
      * @param filterType    The list contain name for factory class to decide which to filter
      * @return      The function for filtering
      */

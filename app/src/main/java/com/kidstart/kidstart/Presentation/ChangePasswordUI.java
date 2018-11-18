@@ -57,7 +57,7 @@ public class ChangePasswordUI extends AppCompatActivity implements View.OnClickL
 
     /**
      * reauthenticates user, validates and changes password
-     * @param view
+     * @param v
      */
     @Override
     public void onClick(View v) {
