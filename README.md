@@ -1,3 +1,3 @@
 # KidStart
 
-WORKING IN PROGRESS
+Android Application
